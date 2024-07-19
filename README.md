@@ -43,6 +43,18 @@ dockerをインストールした人は飛ばしてください
 2. run `back` in run configuration
 3. run `dev` in run configuration
 
-   
+## コーディング規約
+
+### git
+
+1. `develop`ブランチから新しいブランチをディレクトリごとに作成する
+   * docディレクトリ
+      * ドキュメントに関する追加
+   * featureディレクトリ
+      * 機能に関する追加
+   * fixディレクトリ
+      * 修正に関する追加
+2. `PullRequest`を作成し、レビューを依頼する
+
 
 
