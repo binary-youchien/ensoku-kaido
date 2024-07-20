@@ -1,5 +1,5 @@
 import {
-  Links,
+  Links, LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -15,16 +15,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <title>遠足街道</title>
       </head>
       <body>
-        {children}
+        <Outlet/>
         <ScrollRestoration />
         <Scripts />
+        <LiveReload/>
       </body>
     </html>
   );
-}
-
-export default function App() {
-  return <Outlet />;
 }
