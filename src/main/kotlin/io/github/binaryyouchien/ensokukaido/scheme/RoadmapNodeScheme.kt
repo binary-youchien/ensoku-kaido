@@ -1,7 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.scheme
 
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.bson.Document
 
@@ -9,13 +8,11 @@ import org.bson.Document
 data class RoadmapNodeScheme(
   val roadmapId: String,
   val title: String,
-  val description: String,
-  val prevNodeId: String?,
+  val description: String?,
   val condition: String?,
+  val prevNodeId: String?,
   val nextNodeIds: List<String>,
-) {
-  fun toDocument(): Document = Document.parse(Json.encodeToString(this))
-
+) : Scheme {
   companion object {
     private val json = Json { ignoreUnknownKeys = true }
 
