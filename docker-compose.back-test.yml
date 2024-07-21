@@ -25,12 +25,8 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: youtien
   #########################################################
-  back-init:
-    image: ubuntu
-    depends_on:
-      back-init-rsync:
-        condition: service_completed_successfully
-    working_dir: /app
+  back-test:
+    image: openjdk:17-bullseye
     command:
       - bash
       - -c
@@ -53,17 +49,8 @@ services:
               database_name: mongo
               host: back-mongoDB
         " > application.local.yaml
-    volumes:
-      - type: volume
-        source: back-app-data
-        target: /app
-      - type: volume
-        source: back-root
-        target: /root
-  #########################################################
-  back-test:
-    image: openjdk:17-bullseye
-    command: [ ./gradlew, allTests ]
+        chmod +x ./gradlew
+        ./gradlew allTests
     depends_on:
       back-init:
         condition: service_completed_successfully
