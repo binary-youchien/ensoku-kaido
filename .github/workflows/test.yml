@@ -12,4 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: /var/lib/docker
+          key: docker-${{ matrix.conf.file }}-${{ matrix.conf.serviceName }}
+          restore-keys: |
+            docker-${{ matrix.conf.file }}-
+            docker-
       - run: docker compose -f ${{ matrix.conf.file }} up ${{ matrix.conf.serviceName }}
