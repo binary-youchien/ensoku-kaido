@@ -10,7 +10,9 @@ export default function RoadmapNew(
       {...props}
       className={"bg-white"}
     >
-      asdads
+      <form>
+        <input type="text" name={"title"}/>
+      </form>
     </div>
   )
 }
