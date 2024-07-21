@@ -1,0 +1,37 @@
+services:
+  #########################################################
+  back-init-rsync:
+    image: secoresearch/rsync
+    user: root:root
+    command: [
+      rsync, --delete, -av, /src/, /app,
+      --exclude, node_modules,
+      --exclude, /.vite,
+    ]
+    working_dir: /src
+    volumes:
+      - type: bind
+        source: .
+        target: /src
+      - type: volume
+        source: back-app-data
+        target: /app
+  #########################################################
+  back-test:
+    image: openjdk:17-bullseye
+    command: [ ./gradlew, allTests ]
+    depends_on:
+      back-init-rsync:
+        condition: service_completed_successfully
+    working_dir: /app
+    volumes:
+      - type: volume
+        source: back-app-data
+        target: /app
+      - type: volume
+        source: back-root
+        target: /root
+  #########################################################
+volumes:
+  back-app-data:
+  back-root:
