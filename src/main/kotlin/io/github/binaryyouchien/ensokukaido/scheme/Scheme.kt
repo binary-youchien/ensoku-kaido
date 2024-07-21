@@ -6,6 +6,6 @@ import kotlinx.serialization.json.Json
 import org.bson.Document
 
 @Serializable
-open class Scheme {
+sealed interface Scheme {
   fun toDocument(): Document = Document.parse(Json.encodeToString(this))
 }

@@ -44,6 +44,7 @@ class RoadmapRoute(
       route("/{roadmapId}/node") {
         post {
           val roadmapId = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
+          roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
           val nodeBody: PostNodeBody = call.receive<PostNodeBody>()
           val nodeId: String = nodeService.create(nodeBody.toNodeScheme(roadmapId))
           call.respond(HttpStatusCode.Created, nodeId)

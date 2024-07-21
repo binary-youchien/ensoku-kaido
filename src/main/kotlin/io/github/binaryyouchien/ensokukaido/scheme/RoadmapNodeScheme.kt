@@ -12,7 +12,7 @@ data class RoadmapNodeScheme(
   val condition: String?,
   val prevNodeId: String?,
   val nextNodeIds: List<String>,
-) : Scheme() {
+) : Scheme {
   companion object {
     private val json = Json { ignoreUnknownKeys = true }
 

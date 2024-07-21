@@ -8,7 +8,7 @@ import org.bson.Document
 data class RoadmapScheme(
   val firstNodeId: String?,
   val title: String,
-) : Scheme() {
+) : Scheme {
   companion object {
     private val json = Json { ignoreUnknownKeys = true }
 
