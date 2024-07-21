@@ -52,7 +52,7 @@ services:
         chmod +x ./gradlew
         ./gradlew allTests
     depends_on:
-      back-init:
+      back-init-rsync:
         condition: service_completed_successfully
       back-mongoDB:
         condition: service_started
