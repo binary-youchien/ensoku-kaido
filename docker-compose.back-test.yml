@@ -17,12 +17,58 @@ services:
         source: back-app-data
         target: /app
   #########################################################
+  back-mongoDB:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: youtien
+  #########################################################
+  back-init:
+    image: ubuntu
+    depends_on:
+      back-init-rsync:
+        condition: service_completed_successfully
+    working_dir: /app
+    command:
+      - bash
+      - -c
+      - |
+        echo "
+          ktor:
+            application:
+              modules:
+                - io.github.binaryyouchien.ensokukaido.ApplicationKt.module
+            deployment:
+              port: 8080
+          jwt:
+            domain: "https://jwt-provider-domain/"
+            audience: "jwt-audience"
+            realm: "ktor sample app"
+          db:
+            mongo:
+              user: root
+              password: youtien
+              database_name: mongo
+              host: back-mongoDB
+        " > application.local.yaml
+    volumes:
+      - type: volume
+        source: back-app-data
+        target: /app
+      - type: volume
+        source: back-root
+        target: /root
+  #########################################################
   back-test:
     image: openjdk:17-bullseye
     command: [ ./gradlew, allTests ]
     depends_on:
-      back-init-rsync:
+      back-init:
         condition: service_completed_successfully
+      back-mongoDB:
+        condition: service_started
     working_dir: /app
     volumes:
       - type: volume

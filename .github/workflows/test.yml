@@ -9,6 +9,8 @@ jobs:
         conf:
           - file: docker-compose.front-test.yml
             serviceName: front-test
+          - file: docker-compose.back-test.yml
+            serviceName: back-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

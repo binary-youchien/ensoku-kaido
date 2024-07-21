@@ -1,7 +1,7 @@
 package io.github.binaryyouchien.ensokukaido.dummy
 
 import com.mongodb.client.model.Filters
-import io.github.binaryyouchien.ensokukaido.Database
+import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.scheme.Scheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
