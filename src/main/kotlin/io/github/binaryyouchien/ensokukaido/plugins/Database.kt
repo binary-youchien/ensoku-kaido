@@ -1,4 +1,4 @@
-package io.github.binaryyouchien.ensokukaido
+package io.github.binaryyouchien.ensokukaido.plugins
 
 import com.mongodb.client.MongoClient
 import com.mongodb.client.MongoClients

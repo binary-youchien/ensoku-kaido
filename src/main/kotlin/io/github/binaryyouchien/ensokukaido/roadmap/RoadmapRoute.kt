@@ -1,6 +1,7 @@
 package io.github.binaryyouchien.ensokukaido.roadmap
 
-import io.github.binaryyouchien.ensokukaido.Database
+import io.github.binaryyouchien.ensokukaido.plugins.Database
+import io.github.binaryyouchien.ensokukaido.service.NodeService
 import io.github.binaryyouchien.ensokukaido.service.RoadmapService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -12,6 +13,7 @@ class RoadmapRoute(
   database: Database,
 ) {
   private val roadmapService = RoadmapService(database)
+  private val nodeService = NodeService(database)
 
   fun route(route: Route) {
     route.route("/roadmap") {
@@ -39,6 +41,15 @@ class RoadmapRoute(
 //          call.respond(HttpStatusCode.OK)
 //        } ?: call.respond(HttpStatusCode.NotFound)
 //      }
+      route("/{roadmapId}/node") {
+        post {
+          val roadmapId = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
+          roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
+          val nodeBody: PostNodeBody = call.receive<PostNodeBody>()
+          val nodeId: String = nodeService.create(nodeBody.toNodeScheme(roadmapId))
+          call.respond(HttpStatusCode.Created, nodeId)
+        }
+      }
         get {
           val roadmaps = roadmapService.readAllRoadmaps()
           call.respond(HttpStatusCode.OK, roadmaps)

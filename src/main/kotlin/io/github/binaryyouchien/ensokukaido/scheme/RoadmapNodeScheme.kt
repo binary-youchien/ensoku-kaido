@@ -5,13 +5,17 @@ import kotlinx.serialization.json.Json
 import org.bson.Document
 
 @Serializable
-data class RoadmapScheme(
-  val firstNodeId: String?,
+data class RoadmapNodeScheme(
+  val roadmapId: String,
   val title: String,
+  val description: String?,
+  val condition: String?,
+  val prevNodeId: String?,
+  val nextNodeIds: List<String>,
 ) : Scheme {
   companion object {
     private val json = Json { ignoreUnknownKeys = true }
 
-    fun fromDocument(document: Document): RoadmapScheme = json.decodeFromString(document.toJson())
+    fun fromDocument(document: Document): RoadmapNodeScheme = json.decodeFromString(document.toJson())
   }
 }
