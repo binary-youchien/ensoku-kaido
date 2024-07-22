@@ -10,18 +10,23 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 class RoadmapRoute(
-  database: Database,
+    database: Database,
 ) {
-  private val roadmapService = RoadmapService(database)
-  private val nodeService = NodeService(database)
+    private val roadmapService = RoadmapService(database)
+    private val nodeService = NodeService(database)
 
-  fun route(route: Route) {
-    route.route("/roadmap") {
-      post {
-        val roadmapScheme = call.receive<PostRoadmapBody>()
-        val id = roadmapService.create(roadmapScheme.toRoadmapScheme())
-        call.respond(HttpStatusCode.Created, id)
-      }
+    fun route(route: Route) {
+        route.route("/roadmap") {
+            post {
+                val roadmapScheme = call.receive<PostRoadmapBody>()
+                val id = roadmapService.create(roadmapScheme.toRoadmapScheme())
+                call.respond(HttpStatusCode.Created, id)
+            }
+
+            get {
+                val roadmaps = roadmapService.readAllRoadmaps()
+                call.respond(HttpStatusCode.OK, roadmaps)
+            }
 //      get("/{id}") {
 //        val id = call.parameters["id"] ?: throw IllegalArgumentException("No ID found")
 //        roadmapService.read(id)?.let { roadmap ->
@@ -41,21 +46,19 @@ class RoadmapRoute(
 //          call.respond(HttpStatusCode.OK)
 //        } ?: call.respond(HttpStatusCode.NotFound)
 //      }
-      route("/{roadmapId}/node") {
-        post {
-          val roadmapId = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
-          roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
-          val nodeBody: PostNodeBody = call.receive<PostNodeBody>()
-          val nodeId: String = nodeService.create(nodeBody.toNodeScheme(roadmapId))
-          call.respond(HttpStatusCode.Created, nodeId)
-        }
-      }
-        get {
-          val roadmaps = roadmapService.readAllRoadmaps()
-          call.respond(HttpStatusCode.OK, roadmaps)
-        }
+            route("/{roadmapId}/node") {
+                post {
+                    val roadmapId =
+                        call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
+                    roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
+                    val nodeBody: PostNodeBody = call.receive<PostNodeBody>()
+                    val nodeId: String = nodeService.create(nodeBody.toNodeScheme(roadmapId))
+                    call.respond(HttpStatusCode.Created, nodeId)
+                }
+            }
 
+
+        }
     }
-  }
 }
 

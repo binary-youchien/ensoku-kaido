@@ -12,7 +12,7 @@ abstract class AbstractDummies<T : Scheme>(
   schemeName: String,
   database: Database,
 ) {
-  private var collection = let {
+  protected var collection = let {
     database.createCollection(schemeName)
     database.getCollection(schemeName)
   }
