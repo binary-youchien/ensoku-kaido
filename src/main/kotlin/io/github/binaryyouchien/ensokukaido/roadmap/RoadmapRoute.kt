@@ -39,6 +39,11 @@ class RoadmapRoute(
 //          call.respond(HttpStatusCode.OK)
 //        } ?: call.respond(HttpStatusCode.NotFound)
 //      }
+        get {
+          val roadmaps = roadmapService.readAllRoadmaps()
+          call.respond(HttpStatusCode.OK, roadmaps)
+        }
+
     }
   }
 }

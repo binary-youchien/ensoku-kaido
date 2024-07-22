@@ -34,5 +34,13 @@ class RoadmapService(database: Database) {
   suspend fun delete(id: String): Document? = withContext(Dispatchers.IO) {
     collection.findOneAndDelete(Filters.eq("_id", ObjectId(id)))
   }
-}
 
+
+  suspend fun readAllRoadmaps(): List<RoadmapScheme> = withContext(Dispatchers.IO) {
+    collection.find().map { document ->
+      RoadmapScheme.fromDocument(document)
+    }.toList()
+  }
+
+
+}
