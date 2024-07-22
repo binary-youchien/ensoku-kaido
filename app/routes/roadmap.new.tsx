@@ -3,8 +3,6 @@ export default function RoadmapNew(
     ...props
   }: NewProps,
 ) {
-
-
   return (
     <div
       {...props}
