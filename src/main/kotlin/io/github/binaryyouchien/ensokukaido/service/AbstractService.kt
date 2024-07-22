@@ -13,7 +13,7 @@ abstract class AbstractService<T : Scheme>(
   schemeName: String,
   database: Database,
 ) {
-  private var collection: MongoCollection<Document>
+  protected var collection: MongoCollection<Document>
 
   init {
     database.createCollection(schemeName)
