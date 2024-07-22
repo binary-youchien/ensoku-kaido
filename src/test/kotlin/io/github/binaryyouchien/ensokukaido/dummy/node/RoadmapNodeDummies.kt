@@ -1,6 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.dummy.node
 
-import io.github.binaryyouchien.ensokukaido.Database
+import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.dummy.AbstractDummies
 import io.github.binaryyouchien.ensokukaido.dummy.roadmap.RoadmapDummies
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme

@@ -1,6 +1,5 @@
 package io.github.binaryyouchien.ensokukaido.plugins
 
-import io.github.binaryyouchien.ensokukaido.Database
 import io.github.binaryyouchien.ensokukaido.roadmap.RoadmapRoute
 import io.ktor.server.application.*
 import io.ktor.server.response.*

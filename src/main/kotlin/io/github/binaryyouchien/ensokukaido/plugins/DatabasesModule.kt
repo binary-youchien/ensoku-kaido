@@ -1,7 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.plugins
 
 import com.mongodb.client.MongoDatabase
-import io.github.binaryyouchien.ensokukaido.Database
 import io.ktor.server.application.*
 import io.ktor.server.config.*
 

@@ -1,6 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.roadmap
 
-import io.github.binaryyouchien.ensokukaido.Database
+import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.service.NodeService
 import io.github.binaryyouchien.ensokukaido.service.RoadmapService
 import io.ktor.http.*

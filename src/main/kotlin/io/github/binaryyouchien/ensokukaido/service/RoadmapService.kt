@@ -1,6 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.service
 
-import io.github.binaryyouchien.ensokukaido.Database
+import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapScheme
 import org.bson.Document
 
