@@ -1,15 +1,13 @@
-import {amber, grey, lime} from "@mui/material/colors";
 import {createTheme} from "@mui/material";
 
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: amber[200],
-      contrastText: grey[900],
+      main: "#515B92",
     },
     secondary: {
-      main: lime[800],
+      main: "#566422",
     },
     grey: {},
   },
