@@ -1,5 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.scheme
 
+import io.github.binaryyouchien.ensokukaido.roadmap.NodeResponse
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
 import kotlinx.serialization.json.Json
@@ -25,6 +26,17 @@ data class RoadmapNodeScheme(
     fun fromDocument(document: Document): RoadmapNodeScheme = json.decodeFromString<RoadmapNodeScheme>(document.toJson()).apply {
       // idフィールドの型変換手順：documentから_idフィールドを取得→String型→idプロパティに代入
       id = document.getObjectId("_id").toString()
+      }
     }
-  }
+
+    fun toNodeResponse(): NodeResponse {
+      return NodeResponse(
+        id = this.id,
+        roadmapId = this.roadmapId,
+        description = this.description,
+        condition = this.condition,
+        prevNodeId = this.prevNodeId,
+        nextNodeIds = this.nextNodeIds,
+      )
+    }
 }

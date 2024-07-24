@@ -60,15 +60,12 @@ class RoadmapRoute(
                         call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
                     roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
                     val roadmapIdNodes = nodeService.getAllNodes(roadmapId)
+                    // roadmapIdNodesの各要素をNodeResponseブジェクトに変換
+                    // 辿ると分かるし、１つ上のコードみたら分かるが、
+                    // RoadmapIdNodesはRoadmapNodeSchemeのインスタンスのリスト(リストはmap関数によって)
+                    // node は RoadmapNodeSchemeのインスタンス
                     val nodeResponses = roadmapIdNodes.map { node ->
-                        NodeResponse(
-                            id = node.id,
-                            roadmapId = node.roadmapId,
-                            description = node.description,
-                            condition = node.condition,
-                            prevNodeId = node.prevNodeId,
-                            nextNodeIds = node.nextNodeIds,
-                        )
+                        node.toNodeResponse()
                     }
                     call.respond(HttpStatusCode.OK, nodeResponses)
                 }
