@@ -36,14 +36,14 @@ class NodeTest {
   @Test
   fun testFindNode() = test {
     val roadmapDummy = dummies.roadmapDummies.aRoadmap
-    val roadmapDummies = dummies.roadmapNodeDummies.getAllNodes(roadmapDummy.id)
+    val nodeDummies = dummies.roadmapNodeDummies.getAllNodes(roadmapDummy.id)
 
     client.get("/roadmap/${roadmapDummy.id}/node") {
       contentType(ContentType.Application.Json)
     }.apply {
       assertEquals(HttpStatusCode.OK, status, this.toString())
       val nodeResponses: List<NodeResponse> = this.body<List<NodeResponse>>()
-      assertEquals(roadmapDummies.size, nodeResponses.size)
+      assertEquals(nodeDummies.size, nodeResponses.size)
     }
   }
 
