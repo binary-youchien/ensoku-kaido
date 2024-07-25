@@ -4,6 +4,8 @@ import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.dummy.AbstractDummies
 import io.github.binaryyouchien.ensokukaido.dummy.roadmap.RoadmapDummies
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.bson.Document
 
 class RoadmapNodeDummies(
@@ -18,4 +20,12 @@ class RoadmapNodeDummies(
   )
 
   override fun createInstance(document: Document): RoadmapNodeScheme = RoadmapNodeScheme.fromDocument(document)
-}
+
+  // testするため
+  suspend fun getAllNodes(roadmapId : String): List<RoadmapNodeScheme> = withContext(Dispatchers.IO) {
+    collection.find().map { document ->
+      RoadmapNodeScheme.fromDocument(document)
+    }.toList()
+  }
+
+  }
