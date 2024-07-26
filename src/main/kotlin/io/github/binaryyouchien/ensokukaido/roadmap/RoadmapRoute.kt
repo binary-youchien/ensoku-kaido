@@ -30,7 +30,7 @@ class RoadmapRoute(
       }
       route("/{roadmapId}") {
         get {
-          val id = call.parameters["id"] ?: throw IllegalArgumentException("No ID found")
+          val id = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No ID found")
           roadmapService
             .read(id)
             ?.toRoadmapRes()

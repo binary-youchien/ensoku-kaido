@@ -13,7 +13,7 @@ import kotlin.test.assertNotNull
 class NodeTest {
   @Test
   fun testRoot() = test {
-    val roadmapDummy = dummies.roadmapDummies.aRoadmap
+    val roadmapDummy = dummies.roadmapDummies.roadmapA
 
     client.post("/roadmap/${roadmapDummy.id}/node") {
       contentType(ContentType.Application.Json)
@@ -34,7 +34,7 @@ class NodeTest {
 
   @Test
   fun testFindNode() = test {
-    val roadmapDummy = dummies.roadmapDummies.aRoadmap
+    val roadmapDummy = dummies.roadmapDummies.roadmapA
     val nodeDummies = dummies.roadmapNodeDummies.getAllNodes(roadmapDummy.id)
 
     client.get("/roadmap/${roadmapDummy.id}/node") {
