@@ -14,4 +14,5 @@ data class RoadmapScheme(
 
     fun fromDocument(document: Document): RoadmapScheme = json.decodeFromString(document.toJson())
   }
+
 }
