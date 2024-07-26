@@ -1,0 +1,25 @@
+name: test
+
+on:
+  push:
+jobs:
+  test:
+    strategy:
+      matrix:
+        conf:
+          - file: docker-compose.front-test.yml
+            serviceName: front-test
+          - file: docker-compose.back-test.yml
+            serviceName: back-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: /var/lib/docker
+          key: docker-${{ matrix.conf.file }}-${{ matrix.conf.serviceName }}
+          restore-keys: |
+            docker-${{ matrix.conf.file }}-
+            docker-
+      - run: docker compose -f ${{ matrix.conf.file }} up ${{ matrix.conf.serviceName }}

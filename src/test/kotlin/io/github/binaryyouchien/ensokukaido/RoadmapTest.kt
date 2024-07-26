@@ -9,18 +9,18 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class RoadmapTest {
-  @Test
-  fun testRoot() = test {
-    client().post("/roadmap") {
-      contentType(ContentType.Application.Json)
-      setBody(
-        PostRoadmapBody(
-          title = "test"
-        )
-      )
-    }.apply {
-      assertEquals(HttpStatusCode.Created, status, this.toString())
-      assertNotNull(bodyAsText())
+    @Test
+    fun testRoot() = test {
+        client().post("/roadmap") {
+            contentType(ContentType.Application.Json)
+            setBody(
+                PostRoadmapBody(
+                    title = "test",
+                )
+            )
+        }.apply {
+            assertEquals(HttpStatusCode.Created, status, this.toString())
+            assertNotNull(bodyAsText())
+        }
     }
-  }
 }
