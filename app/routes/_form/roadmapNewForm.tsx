@@ -1,6 +1,6 @@
 import {TextInput} from "~/routes/_unit/_form/TextInput";
 import {FormProps, FormState, StyledForm} from "~/mui/StyledForm";
-import {roadmap} from "~/client/roadmap";
+import {RoadmapClient} from "~/client/roadmapClient";
 import {redirect} from "@remix-run/router";
 import {StyledButton} from "~/mui/StyledButton";
 import {Request} from "@remix-run/web-fetch";
@@ -15,7 +15,7 @@ export namespace RoadmapNewFormNs {
     const title = formData.get("title")
     if (typeof title != "string") return FormState.error({title: "タイトルを入力してください"})
 
-    return await roadmap.post({title: title}).then(value => {
+    return await RoadmapClient.post({title: title}).then(value => {
       if (value.error) {
         return FormState.error({form: value.error.error_id + ", " + value.error.message});
       }

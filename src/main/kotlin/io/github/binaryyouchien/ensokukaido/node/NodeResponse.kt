@@ -1,4 +1,4 @@
-package io.github.binaryyouchien.ensokukaido.roadmap
+package io.github.binaryyouchien.ensokukaido.node
 
 import kotlinx.serialization.Serializable
 

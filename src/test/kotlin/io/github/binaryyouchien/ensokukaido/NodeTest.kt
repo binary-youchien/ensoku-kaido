@@ -1,7 +1,7 @@
 package io.github.binaryyouchien.ensokukaido
 
 import io.github.binaryyouchien.ensokukaido.node.PostNodeBody
-import io.github.binaryyouchien.ensokukaido.roadmap.NodeResponse
+import io.github.binaryyouchien.ensokukaido.node.NodeResponse
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*

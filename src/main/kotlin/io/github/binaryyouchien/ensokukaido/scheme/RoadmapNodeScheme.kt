@@ -1,6 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.scheme
 
-import io.github.binaryyouchien.ensokukaido.roadmap.NodeResponse
+import io.github.binaryyouchien.ensokukaido.node.NodeResponse
 import kotlinx.serialization.Serializable
 
 @Suppress("DataClassPrivateConstructor")

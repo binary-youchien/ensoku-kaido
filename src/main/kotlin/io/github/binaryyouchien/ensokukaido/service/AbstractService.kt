@@ -32,7 +32,7 @@ abstract class AbstractService<T : Scheme>(
     doc["_id"].toString()
   }
 
-  suspend fun read(id: String): Scheme? = withContext(Dispatchers.IO) {
+  suspend fun read(id: String): T? = withContext(Dispatchers.IO) {
     collection
       .find(Filters.eq("_id", ObjectId(id)))
       .first()

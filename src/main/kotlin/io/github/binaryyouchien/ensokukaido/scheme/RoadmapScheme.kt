@@ -1,5 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.scheme
 
+import io.github.binaryyouchien.ensokukaido.roadmap.RoadmapRes
 import kotlinx.serialization.Serializable
 
 @Suppress("DataClassPrivateConstructor")
@@ -22,4 +23,8 @@ data class RoadmapScheme private constructor(
       }
     }
   }
+
+  fun toRoadmapRes() = RoadmapRes(
+    id, title, firstNodeId
+  )
 }

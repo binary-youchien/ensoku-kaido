@@ -25,14 +25,17 @@ class RoadmapRoute(
 
       get {
         val roadmaps = roadmapService.readAllRoadmaps()
+          .map { it.toRoadmapRes() }
         call.respond(HttpStatusCode.OK, roadmaps)
       }
       route("/{roadmapId}") {
         get {
           val id = call.parameters["id"] ?: throw IllegalArgumentException("No ID found")
-          roadmapService.read(id)?.let { roadmap ->
-            call.respond(roadmap)
-          } ?: call.respond(HttpStatusCode.NotFound)
+          roadmapService
+            .read(id)
+            ?.toRoadmapRes()
+            ?.let { call.respond(it) }
+            ?: call.respond(HttpStatusCode.NotFound)
         }
         nodeRoute.route(this)
       }
