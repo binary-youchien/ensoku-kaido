@@ -2,6 +2,7 @@ package io.github.binaryyouchien.ensokukaido.scheme
 
 import kotlinx.serialization.Serializable
 
+@Suppress("DataClassPrivateConstructor")
 @Serializable
 data class RoadmapScheme private constructor(
   val firstNodeId: String?,
