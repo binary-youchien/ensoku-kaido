@@ -5,6 +5,7 @@ import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.scheme.Scheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.bson.Document
 import org.bson.types.ObjectId
 
@@ -12,6 +13,11 @@ abstract class AbstractDummies<T : Scheme>(
   schemeName: String,
   database: Database,
 ) {
+  companion object {
+    @JvmStatic
+    protected val json = Json { ignoreUnknownKeys = true }
+  }
+
   protected var collection = let {
     database.createCollection(schemeName)
     database.getCollection(schemeName)
@@ -39,5 +45,10 @@ abstract class AbstractDummies<T : Scheme>(
     collection.findOneAndDelete(Filters.eq("_id", ObjectId(id)))
   }
 
-  protected abstract fun createInstance(document: Document): T
+  protected abstract fun Json.decoder(json: String): T
+  protected fun createInstance(document: Document): T =
+    json.decoder(document.toJson()).apply {
+      id = document.getObjectId("_id").toString()
+    }
+
 }

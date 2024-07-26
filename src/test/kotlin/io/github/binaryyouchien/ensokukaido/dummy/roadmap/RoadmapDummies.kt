@@ -1,20 +1,19 @@
 package io.github.binaryyouchien.ensokukaido.dummy.roadmap
 
-import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.dummy.AbstractDummies
+import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapScheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.bson.Document
+import kotlinx.serialization.json.Json
 
 class RoadmapDummies(database: Database) :
-    AbstractDummies<RoadmapScheme>("roadmap", database) {
-    val aRoadmap = RoadmapDummy(RoadmapScheme(null, "roadmap dummy a"), this)
-    override fun createInstance(document: Document): RoadmapScheme = RoadmapScheme.fromDocument(document)
-
-    suspend fun readAllRoadmaps(): List<RoadmapScheme> = withContext(Dispatchers.IO) {
-        collection.find().map { document ->
-            RoadmapScheme.fromDocument(document)
-        }.toList()
-    }
+  AbstractDummies<RoadmapScheme>("roadmap", database) {
+  val aRoadmap = RoadmapDummy(RoadmapScheme.create(null, null, "roadmap dummy a"), this)
+  override fun Json.decoder(json: String): RoadmapScheme = decodeFromString<RoadmapScheme>(json)
+  suspend fun readAllRoadmaps(): List<RoadmapScheme> = withContext(Dispatchers.IO) {
+    collection.find().map { document ->
+      createInstance(document)
+    }.toList()
+  }
 }

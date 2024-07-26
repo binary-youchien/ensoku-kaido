@@ -7,5 +7,5 @@ import kotlinx.serialization.Serializable
 data class PostRoadmapBody(
   val title: String,
 ) {
-  fun toRoadmapScheme() = RoadmapScheme(null, title)
+  fun toRoadmapScheme() = RoadmapScheme.create(null, null, title)
 }

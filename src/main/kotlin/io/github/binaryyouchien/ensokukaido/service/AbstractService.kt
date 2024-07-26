@@ -6,6 +6,7 @@ import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.scheme.Scheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
 import org.bson.Document
 import org.bson.types.ObjectId
 
@@ -14,6 +15,11 @@ abstract class AbstractService<T : Scheme>(
   database: Database,
 ) {
   protected var collection: MongoCollection<Document>
+
+  companion object {
+    @JvmStatic
+    protected val json = Json { ignoreUnknownKeys = true }
+  }
 
   init {
     database.createCollection(schemeName)
@@ -27,7 +33,10 @@ abstract class AbstractService<T : Scheme>(
   }
 
   suspend fun read(id: String): Scheme? = withContext(Dispatchers.IO) {
-    collection.find(Filters.eq("_id", ObjectId(id))).first()?.let { createInstance(it) }
+    collection
+      .find(Filters.eq("_id", ObjectId(id)))
+      .first()
+      ?.let { createInstance(it) }
   }
 
   suspend fun update(id: String, scheme: Scheme): Document? = withContext(Dispatchers.IO) {
@@ -38,5 +47,10 @@ abstract class AbstractService<T : Scheme>(
     collection.findOneAndDelete(Filters.eq("_id", ObjectId(id)))
   }
 
-  protected abstract fun createInstance(document: Document): T
+  protected abstract fun Json.decoder(json: String): T
+  protected fun createInstance(document: Document): T =
+    json.decoder(document.toJson()).apply {
+      id = document.getObjectId("_id").toString()
+    }
+
 }

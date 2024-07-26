@@ -1,12 +1,13 @@
 package io.github.binaryyouchien.ensokukaido.dummy.node
 
-import io.github.binaryyouchien.ensokukaido.plugins.Database
+import com.mongodb.client.model.Filters
 import io.github.binaryyouchien.ensokukaido.dummy.AbstractDummies
 import io.github.binaryyouchien.ensokukaido.dummy.roadmap.RoadmapDummies
+import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.bson.Document
+import kotlinx.serialization.json.Json
 
 class RoadmapNodeDummies(
   database: Database,
@@ -14,18 +15,19 @@ class RoadmapNodeDummies(
 ) :
   AbstractDummies<RoadmapNodeScheme>("node", database) {
   val aRoadmap = RoadmapNodeDummy(
-    RoadmapNodeScheme(
-      roadmapDummies.aRoadmap.id, "roadmap node dummy a", null, null, null, listOf()
+    RoadmapNodeScheme.create(
+      null, roadmapDummies.aRoadmap.id, "roadmap node dummy a",
+      null, null, null, listOf()
     ), this
   )
 
-  override fun createInstance(document: Document): RoadmapNodeScheme = RoadmapNodeScheme.fromDocument(document)
+  override fun Json.decoder(json: String): RoadmapNodeScheme = decodeFromString<RoadmapNodeScheme>(json)
 
   // testするため
-  suspend fun getAllNodes(roadmapId : String): List<RoadmapNodeScheme> = withContext(Dispatchers.IO) {
-    collection.find().map { document ->
-      RoadmapNodeScheme.fromDocument(document)
+  suspend fun getAllNodes(roadmapId: String): List<RoadmapNodeScheme> = withContext(Dispatchers.IO) {
+    collection.find(Filters.eq(RoadmapNodeScheme::roadmapId.name, roadmapId)).map { document ->
+      createInstance(document)
     }.toList()
   }
 
-  }
+}
