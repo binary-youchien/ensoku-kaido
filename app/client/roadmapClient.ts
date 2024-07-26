@@ -5,6 +5,12 @@ export interface PostRoadmapBody {
   title: string
 }
 
+export interface RoadmapRes {
+  id: string
+  title: string
+  firstNodeId: string
+}
+
 export namespace RoadmapClient {
 
   export async function post(postRoadmapBody: PostRoadmapBody) {
@@ -14,4 +20,9 @@ export namespace RoadmapClient {
       .fetch<IdRes>()
   }
 
+  export async function get(roadmapId: string) {
+    return new FetchBuilder(`/roadmap/${roadmapId}`)
+      .method(HTTPMethod.GET)
+      .fetch<RoadmapRes>()
+  }
 }
