@@ -1,5 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.roadmap
 
+import io.github.binaryyouchien.ensokukaido.common.IdRes
 import io.github.binaryyouchien.ensokukaido.node.NodeRoute
 import io.github.binaryyouchien.ensokukaido.plugins.Database
 import io.github.binaryyouchien.ensokukaido.service.RoadmapService
@@ -20,7 +21,7 @@ class RoadmapRoute(
       post {
         val roadmapScheme = call.receive<PostRoadmapBody>()
         val id = roadmapService.create(roadmapScheme.toRoadmapScheme())
-        call.respond(HttpStatusCode.Created, id)
+        call.respond(HttpStatusCode.Created, IdRes(id))
       }
 
       get {

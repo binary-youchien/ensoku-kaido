@@ -1,5 +1,5 @@
-import {ErrorId, ErrorIds} from "~/client/error";
-import {util} from "~/util";
+import {ErrorIds} from "~/client/error";
+import {ApiResult, Results} from "~/client/result";
 
 export enum HTTPMethod {
   GET = "GET",
@@ -41,10 +41,12 @@ export namespace base {
       return await fetch(createApiURL(path), mergeDefaultRequestInit(init)).then(async (res) => {
         return await resToResult<R>(res)
       }).catch((fetchReason) => {
-        return createErrorResult(ErrorIds.UnknownError, fetchReason)
+        console.debug("fetch error: ", fetchReason)
+        return Results.createErrorResult(ErrorIds.UnknownError, fetchReason)
       });
     } catch (err) {
-      return createErrorResult(ErrorIds.UnknownError, err)
+      console.debug("url error: ", err)
+      return Results.createErrorResult(ErrorIds.UnknownError, err)
     }
   }
 
@@ -87,29 +89,9 @@ export namespace base {
     return await json.then(value => {
       return {value: value as R}
     }).catch(reason => {
-      return createErrorResult(ErrorIds.InvalidBody, reason)
+      console.debug("json error: ", reason)
+      return Results.createErrorResult(ErrorIds.InvalidBody, reason)
     })
-  }
-
-  function createErrorResult(errorId: ErrorId, reason: any): ErrorResult {
-    return {error: errorId.createData(util.createErrorMessage(reason))};
-  }
-
-  type ApiResult<T> = SuccessResult<T> | ErrorResult
-
-  export interface SuccessResult<T> {
-    value: T;
-    error?: undefined;
-  }
-
-  export interface ErrorResult {
-    value?: undefined;
-    error: ErrorData;
-  }
-
-  export interface ErrorData {
-    error_id: string;
-    message: string;
   }
 
   export function createApiURL(url: URL | string): URL {
@@ -120,4 +102,5 @@ export namespace base {
       throw e
     }
   }
+
 }

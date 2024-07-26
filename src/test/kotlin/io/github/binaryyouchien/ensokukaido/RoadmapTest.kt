@@ -1,10 +1,10 @@
 package io.github.binaryyouchien.ensokukaido
 
+import io.github.binaryyouchien.ensokukaido.common.IdRes
 import io.github.binaryyouchien.ensokukaido.roadmap.PostRoadmapBody
 import io.github.binaryyouchien.ensokukaido.roadmap.RoadmapRes
 import io.ktor.client.call.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -22,7 +22,7 @@ class RoadmapTest {
       )
     }.apply {
       assertEquals(HttpStatusCode.Created, status, this.toString())
-      assertNotNull(bodyAsText())
+      assertNotNull(body<IdRes>())
     }
   }
 
