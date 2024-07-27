@@ -1,27 +1,18 @@
 import {Box} from "@mui/system";
 import {BoxTypeMap} from "@mui/system/Box/Box";
 import {OverrideProps} from "@mui/types";
-import {RoadmapRes} from "~/client/roadmapClient";
-import {NodeRes} from "~/client/nodeClient";
-import {useEffect, useState} from "react";
-import {NodeState} from "~/mui/err/NodeState";
-import {InitialNodeBuilder} from "~/mui/err/InitialNodeBuilder";
+import {RoadmapState} from "~/routes/roadmap/RoadmapState";
 
 export function RoadmapEditor(
   {
-    roadmapRes,
-    nodesRes,
+    roadmapState,
     ...props
   }: RoadmapEditorProps,
 ) {
-  const [nodeState, setNodeState] = useState<NodeState>()
-
-  useEffect(() => {
-    setNodeState(new InitialNodeBuilder(roadmapRes, nodesRes).build(setNodeState))
-  }, [roadmapRes, nodesRes]);
 
   return (
     <Box
+      displayPrint={"flex"}
       {...props}
     >
     </Box>
@@ -29,6 +20,5 @@ export function RoadmapEditor(
 }
 
 export interface RoadmapEditorProps extends OverrideProps<BoxTypeMap, any> {
-  roadmapRes: RoadmapRes
-  nodesRes: NodeRes[]
+  roadmapState: RoadmapState
 }
