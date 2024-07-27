@@ -15,7 +15,7 @@ class RoadmapNodeDummies(
   roadmapDummies: RoadmapDummies,
 ) :
   AbstractDummies<RoadmapNodeScheme>("node", database) {
-  val aNode = RoadmapNodeDummy(
+  val nodeA = RoadmapNodeDummy(
     RoadmapNodeScheme.create(
       null, roadmapDummies.roadmapA.id, "roadmap node dummy a",
       null, null, null, listOf(), position = NodePosition.DOWN

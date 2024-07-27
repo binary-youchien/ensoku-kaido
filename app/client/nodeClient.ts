@@ -11,7 +11,7 @@ export interface PostNodeBody {
 
 export enum NodePosition {
   RIGHT,
-  DOWN ,
+  DOWN,
 }
 
 export interface NodeRes {
@@ -32,9 +32,15 @@ export namespace NodeClient {
       .fetch<IdRes>()
   }
 
-  export async function get(roadmapId: string) {
+  export async function getAll(roadmapId: string) {
     return await new FetchBuilder(`/roadmap/${roadmapId}/node`)
       .method(HTTPMethod.GET)
       .fetch<NodeRes[]>()
+  }
+
+  export async function get(roadmapId: string, nodeId: string) {
+    return await new FetchBuilder(`/roadmap/${roadmapId}/node/${nodeId}`)
+      .method(HTTPMethod.GET)
+      .fetch<NodeRes>()
   }
 }

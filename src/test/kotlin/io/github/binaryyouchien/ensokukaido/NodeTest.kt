@@ -1,8 +1,8 @@
 package io.github.binaryyouchien.ensokukaido
 
 import io.github.binaryyouchien.ensokukaido.node.NodePosition
-import io.github.binaryyouchien.ensokukaido.node.PostNodeBody
 import io.github.binaryyouchien.ensokukaido.node.NodeRes
+import io.github.binaryyouchien.ensokukaido.node.PostNodeBody
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
@@ -13,8 +13,9 @@ import kotlin.test.assertNotNull
 
 class NodeTest {
   @Test
-  fun testRoot() = test {
+  fun testPost() = test {
     val roadmapDummy = dummies.roadmapDummies.roadmapA
+    dummies.roadmapNodeDummies
 
     client.post("/roadmap/${roadmapDummy.id}/node") {
       contentType(ContentType.Application.Json)
@@ -31,6 +32,19 @@ class NodeTest {
     }.apply {
       assertEquals(HttpStatusCode.Created, status, this.toString())
       assertNotNull(bodyAsText())
+    }
+  }
+
+  @Test
+  fun testGet() = test {
+    val roadmapDummy = dummies.roadmapDummies.roadmapA
+    val nodeDummy = dummies.roadmapNodeDummies.nodeA
+
+    client.get("/roadmap/${roadmapDummy.id}/node/${nodeDummy.id}") {
+      contentType(ContentType.Application.Json)
+    }.apply {
+      assertEquals(HttpStatusCode.OK, status, this.toString())
+      assertEquals(nodeDummy.read()?.toNodeResponse(), body<NodeRes>())
     }
   }
 

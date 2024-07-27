@@ -39,6 +39,15 @@ class NodeRoute(
         val nodeId: String = nodeService.create(nodeBody.toNodeScheme(roadmapId))
         call.respond(HttpStatusCode.Created, nodeId)
       }
+      route("/{nodeId}") {
+        get {
+          val roadmapId = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
+          roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
+          val nodeId = call.parameters["nodeId"] ?: throw IllegalArgumentException("No node ID found")
+          val nodeScheme = nodeService.read(nodeId) ?: throw IllegalArgumentException("No node scheme found")
+          call.respond(HttpStatusCode.OK, nodeScheme.toNodeResponse())
+        }
+      }
     }
   }
 }
