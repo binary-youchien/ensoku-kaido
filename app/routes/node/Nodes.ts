@@ -1,4 +1,4 @@
-import {NodeEntity} from "~/routes/roadmap/editor/NodeEntity";
+import {NodeEntity} from "~/routes/node/NodeEntity";
 
 export class Nodes {
   constructor(

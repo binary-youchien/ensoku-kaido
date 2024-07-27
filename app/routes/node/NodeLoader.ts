@@ -1,9 +1,9 @@
 import {NodeClient} from "~/client/nodeClient";
-import {Nodes} from "~/routes/roadmap/editor/Nodes";
+import {Nodes} from "~/routes/node/Nodes";
 import {RoadmapState} from "~/routes/roadmap/RoadmapState";
 import {taskOrderQueueMap} from "~/entry.client";
 import {TaskOrderQueue} from "~/util/TaskOrderQueueMap";
-import {NodeData, NodeEntity} from "~/routes/roadmap/editor/NodeEntity";
+import {NodeData, NodeEntity} from "~/routes/node/NodeEntity";
 
 export class NodeLoader {
   readonly taskOrderQueue: TaskOrderQueue
