@@ -2,6 +2,7 @@ import { Link } from "@remix-run/react";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import {Button, Modal, Typography} from "@mui/material";
+import NaviEditWithModal from './NaviPost'
 
 interface NavItemProps {
   to: string;
@@ -10,7 +11,7 @@ interface NavItemProps {
   bgColor: string;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ fgColor,bgColor , children, onModalOpen }) => {
+const NavItem: React.FC<NavItemProps> = ({ fgColor,bgColor , children }) => {
   return (
     <Box sx={{ mb: 2}}>
 
@@ -37,9 +38,9 @@ const NavItem: React.FC<NavItemProps> = ({ fgColor,bgColor , children, onModalOp
           // borderColor:bgColor,
         }}>
         </Box>
-        <Link to={to} style={{ textDecoration: 'none', color: 'white',fontSize:"inherit" }}>
-          {children}
-        </Link>
+        {/*<Link to={to} style={{ textDecoration: 'none', color: 'white',fontSize:"inherit" }}>*/}
+        {/*  {children}*/}
+        {/*</Link>*/}
        <Box sx={{
           position:"absolute",
           top: "100%",
@@ -53,6 +54,7 @@ const NavItem: React.FC<NavItemProps> = ({ fgColor,bgColor , children, onModalOp
           backgroundColor:bgColor,
           }}>
         </Box>
+        {children}
       </Box>
     </Box>
   );

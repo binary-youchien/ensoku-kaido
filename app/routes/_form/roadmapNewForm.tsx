@@ -43,4 +43,6 @@ export function RoadmapNewForm<T extends (({request}: { request: Request }) => P
 }
 
 export interface RoadmapNewFormProps extends FormProps {
+  // actionプロパティを外のファイルにあるRoadmapNewFormPropsコンポーンで使えるよう試みる→できてない
+  action: (request: Request) => Promise<Response>;
 }

@@ -3,8 +3,7 @@ import {Box} from "@mui/system";
 import {Avatar, Modal,} from "@mui/material";
 import React, { useState } from 'react';
 import NavItem from '../NavItem';
-
-import NaviEditWithModal from '../NaviEdit'
+import NaviEditWithModal from '../NaviPost'
 
 import {handle} from "mdast-util-to-markdown/lib/handle";
 
@@ -18,6 +17,7 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+
   const theme ={
     navfgColor:"#515B92",
     navbgColor:"#D9EB99",
@@ -47,6 +47,10 @@ export default function Index() {
           <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">一覧</NavItem>
           <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">トップ</NavItem>
           <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">ログイン</NavItem>
+          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">
+            <NaviEditWithModal></NaviEditWithModal>
+          </NavItem>
+
         </Box>
       </Box>
     </div>
