@@ -3,6 +3,7 @@ package io.github.binaryyouchien.ensokukaido.roadmap
 import io.github.binaryyouchien.ensokukaido.common.IdRes
 import io.github.binaryyouchien.ensokukaido.node.NodeRoute
 import io.github.binaryyouchien.ensokukaido.plugins.Database
+import io.github.binaryyouchien.ensokukaido.scheme.RoadmapScheme
 import io.github.binaryyouchien.ensokukaido.service.RoadmapService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -37,6 +38,14 @@ class RoadmapRoute(
             ?.toRoadmapRes()
             ?.let { call.respond(it) }
             ?: call.respond(HttpStatusCode.NotFound)
+        }
+        put {
+          val id = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No ID found")
+          val updates = call.receive<RoadmapScheme>()
+
+          roadmapService.update(id, updates)?.let {
+            call.respond(HttpStatusCode.OK)
+          } ?: call.respond(HttpStatusCode.NotFound)
         }
         nodeRoute.route(this)
       }
