@@ -1,8 +1,14 @@
 import type { MetaFunction } from "@remix-run/node";
 import {Box} from "@mui/system";
-import {Avatar,} from "@mui/material";
-
+import {Avatar, Modal,} from "@mui/material";
+import React, { useState } from 'react';
 import NavItem from '../NavItem';
+
+import NaviEditWithModal from '../NaviEdit'
+
+import {handle} from "mdast-util-to-markdown/lib/handle";
+
+// import BasicModal from "~/mui/BasicModal";
 
 export const meta: MetaFunction = () => {
   return [
@@ -43,9 +49,6 @@ export default function Index() {
           <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">ログイン</NavItem>
         </Box>
       </Box>
-
-
-
     </div>
   );
 }
