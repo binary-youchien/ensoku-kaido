@@ -1,9 +1,9 @@
 import * as React from "react";
 import {createContext, ReactNode} from "react";
-import {Form, useActionData} from "@remix-run/react";
+import {Form} from "@remix-run/react";
 import {Request} from "@remix-run/web-fetch";
 import {json} from "react-router";
-import {ErrorMessage} from "~/mui/ErrorMessage";
+import {ErrorMessage} from "~/mui/err/ErrorMessage";
 
 
 export namespace FormState {
@@ -16,24 +16,25 @@ export namespace FormState {
 
 export type FormError = { [key: string]: string }
 
-export function StyledForm<T extends (({request}: { request: Request }) => Promise<Response>)>(
+export function StyledForm(
   {
+    formError,
     ...props
   }: FormProps,
 ) {
-  const formState: FormError | undefined = useActionData<T>();
 
   return (
     <FormState.Context.Provider
-      value={formState}
+      value={formError}
     >
-      <ErrorMessage error={formState && formState["form"]}/>
+      <ErrorMessage error={formError && formError["form"]}/>
       <Form method={"POST"} {...props}/>
-      <ErrorMessage error={formState && formState["form"]}/>
+      <ErrorMessage error={formError && formError["form"]}/>
     </FormState.Context.Provider>
   )
 }
 
 export interface FormProps {
   children?: ReactNode
+  formError: FormError | undefined
 }

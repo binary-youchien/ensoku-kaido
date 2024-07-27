@@ -2,7 +2,7 @@ import {TextField} from "@mui/material";
 import {TextFieldProps} from "@mui/material/TextField/TextField";
 import {useContext} from "react";
 import {FormState} from "~/mui/StyledForm";
-import {ErrorMessage} from "~/mui/ErrorMessage";
+import {ErrorMessage} from "~/mui/err/ErrorMessage";
 
 export function TextInput(
   {

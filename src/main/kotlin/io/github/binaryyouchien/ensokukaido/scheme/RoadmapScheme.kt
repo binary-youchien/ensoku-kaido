@@ -1,17 +1,30 @@
 package io.github.binaryyouchien.ensokukaido.scheme
 
+import io.github.binaryyouchien.ensokukaido.roadmap.RoadmapRes
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
-import org.bson.Document
 
+@Suppress("DataClassPrivateConstructor")
 @Serializable
-data class RoadmapScheme(
+data class RoadmapScheme private constructor(
   val firstNodeId: String?,
   val title: String,
-) : Scheme {
+) : Scheme() {
   companion object {
-    private val json = Json { ignoreUnknownKeys = true }
-
-    fun fromDocument(document: Document): RoadmapScheme = json.decodeFromString(document.toJson())
+    fun create(
+      id: String?,
+      firstNodeId: String?,
+      title: String,
+    ) = RoadmapScheme(
+      firstNodeId,
+      title,
+    ).also {
+      if (id != null) {
+        it.id = id
+      }
+    }
   }
+
+  fun toRoadmapRes() = RoadmapRes(
+    id, title, firstNodeId
+  )
 }
