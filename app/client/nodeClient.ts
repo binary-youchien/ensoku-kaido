@@ -17,6 +17,7 @@ export enum NodePosition {
 export interface NodeRes {
   id: string,
   roadmapId: string,
+  title: string,
   position: string
   description: string | undefined
   condition: string | undefined
@@ -42,5 +43,11 @@ export namespace NodeClient {
     return await new FetchBuilder(`/roadmap/${roadmapId}/node/${nodeId}`)
       .method(HTTPMethod.GET)
       .fetch<NodeRes>()
+  }
+
+  export async function getAll() {
+    return await new FetchBuilder(`/roadmap`)
+      .method(HTTPMethod.GET)
+      .fetch<NodeResponse[]>()
   }
 }
