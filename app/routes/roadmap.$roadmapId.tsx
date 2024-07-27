@@ -1,14 +1,15 @@
 import { LoaderFunction, json  } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { roadmap } from "~/client/roadmap";
-import {PostNodeBody} from "~/client/roadmap";
+
 import {base} from "~/client/base";
-import ApiResult = base.ApiResult;
+import {PostNodeBody} from "~/client/nodeClient";
+import {ApiResult} from "~/client/result";
+import {RoadmapClient} from "~/client/roadmapClient";
 
 
 export const loader: LoaderFunction = async ({ params }) => {
   const roadmapId = params.roadmapId as string;
-  const nodes = await roadmap.getNodes(roadmapId);
+  const nodes = await RoadmapClient.getNodes(roadmapId);
 
   return json(nodes);
 }

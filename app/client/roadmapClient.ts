@@ -1,6 +1,7 @@
 import {FetchBuilder, HTTPMethod} from "~/client/base";
 import {IdRes} from "~/client/common";
 import {ApiResult} from "~/client/result";
+import {PostNodeBody} from "~/client/nodeClient";
 
 export interface PostRoadmapBody {
   title: string
@@ -25,5 +26,12 @@ export namespace RoadmapClient {
     return await new FetchBuilder(`/roadmap/${roadmapId}`)
       .method(HTTPMethod.GET)
       .fetch<RoadmapRes>()
+  }
+
+  export async function getNodes(roadmapId: string) {
+    console.log(`Fetching nodes for roadmapId---------------------------------: ${roadmapId}`);
+    return new FetchBuilder(`/roadmap/${roadmapId}/node`)
+      .method(HTTPMethod.GET)
+      .fetch<PostNodeBody[]>();
   }
 }
