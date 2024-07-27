@@ -5,8 +5,10 @@ import {ApiResult, Results} from "~/client/result";
 import {ErrorIds} from "~/client/error";
 import {RoadmapClient, RoadmapRes} from "~/client/roadmapClient";
 import {useLoaderData} from "@remix-run/react";
-import {RoadmapEditor} from "~/routes/roadmap/RoadmapEditor";
+import {RoadmapEditor} from "~/routes/roadmap/editor/RoadmapEditor";
 import {RoadmapToolbar} from "~/routes/roadmap/RoadmapToolbar";
+import {NodeClient, NodeRes} from "~/client/nodeClient";
+import {SuccessOrErrMsg} from "~/mui/err/SuccessOrErrMsg";
 
 export async function loader(
   {params}: LoaderFunctionArgs
@@ -15,7 +17,8 @@ export async function loader(
   if (roadmapId == undefined)
     return json(Results.createErrorResult(ErrorIds.NoId, "no roadmap id"))
   return json([
-    await RoadmapClient.get(roadmapId)
+    await RoadmapClient.get(roadmapId),
+    await NodeClient.get(roadmapId)
   ])
 }
 
@@ -24,7 +27,8 @@ export default function RoadmapNew(
     ...props
   }: NewProps,
 ) {
-  const [roadmapResult]: [ApiResult<RoadmapRes>] = useLoaderData<typeof loader>()
+  const [roadmapResult, nodesResult]: [ApiResult<RoadmapRes>, ApiResult<NodeRes[]>]
+    = useLoaderData<typeof loader>()
 
   return (
     <Box
@@ -32,7 +36,11 @@ export default function RoadmapNew(
       className={"bg-white"}
     >
       <RoadmapToolbar roadmapResult={roadmapResult}/>
-      <RoadmapEditor roadmapResult={roadmapResult}/>
+      <SuccessOrErrMsg result={roadmapResult} success={roadmap =>
+        <SuccessOrErrMsg result={nodesResult} success={nodes =>
+          <RoadmapEditor nodesRes={nodes.value} roadmapRes={roadmap.value}/>
+        }/>
+      }/>
     </Box>
   )
 }

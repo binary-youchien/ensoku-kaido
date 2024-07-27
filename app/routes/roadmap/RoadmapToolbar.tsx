@@ -4,6 +4,7 @@ import {OverrideProps} from "@mui/types";
 import {ApiResult} from "~/client/result";
 import {RoadmapRes} from "~/client/roadmapClient";
 import {Typography} from "@mui/material";
+import {SuccessOrErrMsg} from "~/mui/err/SuccessOrErrMsg";
 
 export function RoadmapToolbar(
   {
@@ -16,7 +17,9 @@ export function RoadmapToolbar(
     <Box
       {...props}
     >
-      <Typography variant={"h2"}>{roadmapResult.value?.title || "404 Not Found"}</Typography>
+      <SuccessOrErrMsg result={roadmapResult} success={result =>
+        <Typography variant={"h2"}>{result.value.title}</Typography>
+      }/>
     </Box>
   )
 }
