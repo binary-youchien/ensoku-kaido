@@ -9,12 +9,32 @@ export interface PostNodeBody {
   nextNodeIds: string[],
 }
 
+export enum NodePosition {
+  RIGHT = "right",
+  DOWN = "down"
+}
+
+export interface NodeResponse {
+  id: string,
+  roadmapId: string,
+  position: string
+  description: string | undefined
+  condition: string | undefined
+  prevNodeId: string | undefined
+  nextNodeIds: string[]
+}
+
 export namespace NodeClient {
   export async function postNode(roadmapId: string, postNodeBody: PostNodeBody) {
-    return new FetchBuilder(`/roadmap/${roadmapId}/node`)
+    return await new FetchBuilder(`/roadmap/${roadmapId}/node`)
       .method(HTTPMethod.POST)
       .body(postNodeBody)
       .fetch<IdRes>()
   }
 
+  export async function get(roadmapId: string) {
+    return await new FetchBuilder(`/roadmap/${roadmapId}/node`)
+      .method(HTTPMethod.GET)
+      .fetch<NodeResponse[]>()
+  }
 }
