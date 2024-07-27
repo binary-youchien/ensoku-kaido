@@ -1,48 +1,54 @@
 import type { MetaFunction } from "@remix-run/node";
+import {Box} from "@mui/system";
+import {Avatar,} from "@mui/material";
+
+import NavItem from '../NavItem';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
+    { title: "Ensoku Kaido" },
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
 
 export default function Index() {
+  const theme ={
+    navfgColor:"#515B92",
+    navbgColor:"#D9EB99",
+  }
+
   return (
+
     <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
-      <ul className="list-disc mt-4 pl-6 space-y-2">
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/quickstart"
-            rel="noreferrer"
-          >
-            5m Quick Start
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/tutorial"
-            rel="noreferrer"
-          >
-            30m Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+
+      <Box sx={{
+        width: "160px",
+        backgroundColor: '#D9EB99',
+        borderRadius: "30px",
+        boxShadow: '0px 2px 1px rgba(0, 0, 0, 0.2)',
+        height: "90vh",
+      }}>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: "20%",
+          width: "100%",
+        }}>
+          <Avatar sx={{width: 56, height: 56, mb: 2}}/>
+        </Box>
+        <Box >
+          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">一覧</NavItem>
+          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">トップ</NavItem>
+          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">ログイン</NavItem>
+        </Box>
+      </Box>
+
+
+
     </div>
   );
 }
+
+
+
