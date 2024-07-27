@@ -2,7 +2,7 @@ import {NodeEntity} from "~/routes/node/NodeEntity";
 
 export class Nodes {
   constructor(
-    private readonly nodes: (NodeEntity | undefined)[][]
+    readonly nodes: (NodeEntity | undefined)[][]
   ) {
   }
 
@@ -11,7 +11,7 @@ export class Nodes {
   }
 
   rowSize() {
-    if (this.columnSize() <= 1) return 0
+    if (this.columnSize() < 1) return 0
     return this.nodes[0].length
   }
 
