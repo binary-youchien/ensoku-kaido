@@ -1,6 +1,7 @@
 package io.github.binaryyouchien.ensokukaido.node
 
 import io.github.binaryyouchien.ensokukaido.plugins.Database
+import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme
 import io.github.binaryyouchien.ensokukaido.service.NodeService
 import io.github.binaryyouchien.ensokukaido.service.RoadmapService
 import io.ktor.http.*
@@ -46,6 +47,18 @@ class NodeRoute(
           val nodeId = call.parameters["nodeId"] ?: throw IllegalArgumentException("No node ID found")
           val nodeScheme = nodeService.read(nodeId) ?: throw IllegalArgumentException("No node scheme found")
           call.respond(HttpStatusCode.OK, nodeScheme.toNodeResponse())
+        }
+        put {
+          val roadmapId: String = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No roadmap ID found")
+          roadmapService.read(roadmapId) ?: throw IllegalArgumentException("No roadmap scheme found")
+          val nodeId: String = call.parameters["nodeId"] ?: throw IllegalArgumentException("No node ID found")
+          val nodeBody: PutNodeBody = call.receive<PutNodeBody>()
+          val nodeScheme: RoadmapNodeScheme = nodeService.read(nodeId) ?: throw IllegalArgumentException(
+            "No node scheme found"
+          )
+          val updatedNodeScheme: RoadmapNodeScheme = nodeBody.toNodeScheme(nodeId, nodeScheme.roadmapId)
+          nodeService.update(nodeId, updatedNodeScheme)
+          call.respond(HttpStatusCode.OK)
         }
       }
     }

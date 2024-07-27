@@ -39,8 +39,9 @@ abstract class AbstractService<T : Scheme>(
       ?.let { createInstance(it) }
   }
 
-  suspend fun update(id: String, scheme: Scheme): Document? = withContext(Dispatchers.IO) {
+  suspend fun update(id: String, scheme: T): T? = withContext(Dispatchers.IO) {
     collection.findOneAndReplace(Filters.eq("_id", ObjectId(id)), scheme.toDocument())
+      ?.let { createInstance(it) }
   }
 
   suspend fun delete(id: String): Document? = withContext(Dispatchers.IO) {
