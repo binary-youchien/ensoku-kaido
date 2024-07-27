@@ -10,10 +10,9 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ to,fgColor,bgColor , children }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
   return (
     <Box sx={{ mb: 2}}>
-
-
       <Box sx={{
         display: 'flex',
         position: 'relative',
@@ -21,8 +20,14 @@ const NavItem: React.FC<NavItemProps> = ({ to,fgColor,bgColor , children }) => {
         justifyContent: 'center',
         backgroundColor: fgColor,
         borderRadius: '2px',
-        height: "80px",
-      }}>
+        height: isHovered ? '80px' : '60px',
+        transition: 'height 0.1s linear',
+        transformOrigin: 'center top',
+
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)
+      }>
         <Box sx={{
           position:"absolute",
           top: 0,
@@ -34,9 +39,7 @@ const NavItem: React.FC<NavItemProps> = ({ to,fgColor,bgColor , children }) => {
           borderRight: "25px solid transparent",
           borderBottom: "0px solid bgColor",
           backgroundColor: fgColor,
-          // borderColor:bgColor,
         }}>
-
         </Box>
         <Link to={to} style={{ textDecoration: 'none', color: 'white',fontSize:"inherit" }}>
           {children}
@@ -52,7 +55,6 @@ const NavItem: React.FC<NavItemProps> = ({ to,fgColor,bgColor , children }) => {
           borderRight: "25px solid transparent",
           borderBottom: `0px solid ${bgColor}`,
           backgroundColor:bgColor,
-          // borderColor:bgColor,
        }}>
         </Box>
       </Box>
