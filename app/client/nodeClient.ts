@@ -45,9 +45,9 @@ export namespace NodeClient {
       .fetch<NodeRes>()
   }
 
-  export async function getAll() {
+  export async function RoadMapGetAll() {
     return await new FetchBuilder(`/roadmap`)
       .method(HTTPMethod.GET)
-      .fetch<NodeResponse[]>()
+      .fetch<NodeRes[]>()
   }
 }

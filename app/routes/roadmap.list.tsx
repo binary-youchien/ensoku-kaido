@@ -3,22 +3,17 @@ import { LoaderFunctionArgs } from "@remix-run/router";
 import { json, LoaderFunction } from "react-router";
 import { ApiResult, Results } from "~/client/result";
 import { ErrorIds } from "~/client/error";
-import { NodeClient, NodeResponse } from "~/client/nodeClient";
+import { NodeClient, NodeRes } from "~/client/nodeClient";
 import { useLoaderData } from "@remix-run/react";
 
 export const loader: LoaderFunction = async (): Promise<Response> => {
-  try {
-    const nodes = await NodeClient.getAll();
+    const nodes = await NodeClient.RoadMapGetAll();
     return json(nodes);
-  } catch (error) {
-    console.error("Failed to fetch nodes:", error);
-    return json(Results.createErrorResult(ErrorIds.UnknownError, error.message));
-  }
 };
 
 // Component rendering function
 export default function RoadmapList({ ...props }: NewProps) {
-  const nodes: ApiResult<NodeResponse[]> = useLoaderData();
+  const nodes: ApiResult<NodeRes[]> = useLoaderData();
 
   return (
     <Box {...props} className="bg-white">
