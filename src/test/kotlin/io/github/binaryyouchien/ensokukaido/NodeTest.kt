@@ -25,8 +25,9 @@ class NodeTest {
           description = null,
           condition = null,
           prevNodeId = null,
-          nextNodeIds = listOf(),
-          position = NodePosition.DOWN
+          position = NodePosition.DOWN,
+          downNodeId = null,
+          rightNodeId = null,
         )
       )
     }.apply {
@@ -44,7 +45,7 @@ class NodeTest {
       contentType(ContentType.Application.Json)
     }.apply {
       assertEquals(HttpStatusCode.OK, status, this.toString())
-      assertEquals(nodeDummy.read()?.toNodeResponse(), body<NodeRes>())
+      assertEquals(nodeDummy.read().toNodeResponse(), body<NodeRes>())
     }
   }
 

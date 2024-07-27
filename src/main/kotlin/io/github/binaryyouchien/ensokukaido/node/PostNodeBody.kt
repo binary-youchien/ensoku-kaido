@@ -9,8 +9,9 @@ data class PostNodeBody(
   val description: String?,
   val condition: String?,
   val prevNodeId: String?,
-  val nextNodeIds: List<String>,
   val position: NodePosition,
+  val downNodeId: String?,
+  val rightNodeId: String?,
 ) {
   fun toNodeScheme(roadmapId: String) = RoadmapNodeScheme.create(
     null,
@@ -19,7 +20,8 @@ data class PostNodeBody(
     description,
     condition,
     prevNodeId,
-    nextNodeIds,
-    position
+    position,
+    downNodeId = downNodeId,
+    rightNodeId = rightNodeId
   )
 }

@@ -16,12 +16,12 @@ export enum NodePosition {
 
 export interface NodeRes {
   id: string,
-  roadmapId: string,
-  position: string
+  roadmapId: string
   description: string | undefined
   condition: string | undefined
   prevNodeId: string | undefined
-  nextNodeIds: string[]
+  downNodeId: string | undefined
+  rightNodeId: string | undefined
 }
 
 export namespace NodeClient {
@@ -44,3 +44,4 @@ export namespace NodeClient {
       .fetch<NodeRes>()
   }
 }
+
