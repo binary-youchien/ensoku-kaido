@@ -95,7 +95,7 @@ export namespace base {
     return {error: errorId.createData(util.createErrorMessage(reason))};
   }
 
-  type ApiResult<T> = SuccessResult<T> | ErrorResult
+  export type ApiResult<T> = SuccessResult<T> | ErrorResult
 
   export interface SuccessResult<T> {
     value: T;
