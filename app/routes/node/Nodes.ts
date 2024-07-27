@@ -1,4 +1,5 @@
-import {NodeEntity} from "~/routes/node/NodeEntity";
+import {NodeData, NodeEntity} from "~/routes/node/NodeEntity";
+import {util} from "~/util";
 
 export class Nodes {
   constructor(
@@ -15,6 +16,15 @@ export class Nodes {
     return this.nodes[0].length
   }
 
+  getNodeRes(columnI: number, rowI: number) {
+    const node = this.nodes[columnI][rowI];
+
+    if (node == undefined || node.data.error) {
+      throw Error("invalid node state error: ", util.createErrorMessage(node))
+    }
+    return node.data.nodeRes;
+  }
+
   set(columnI: number, rowI: number, node: NodeEntity) {
     if (this.columnSize() <= columnI) {
       const column: (NodeEntity | undefined)[] = []
@@ -29,6 +39,10 @@ export class Nodes {
       })
     }
     this.nodes[columnI][rowI] = node
+  }
+
+  setNode(columnI: number, rowI: number, nodeData: NodeData) {
+    this.set(columnI, rowI, new NodeEntity(nodeData, columnI, rowI))
   }
 
   copy() {

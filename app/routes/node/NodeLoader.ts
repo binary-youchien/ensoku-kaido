@@ -6,14 +6,14 @@ import {TaskOrderQueue} from "~/util/TaskOrderQueueMap";
 import {NodeData, NodeEntity} from "~/routes/node/NodeEntity";
 
 export class NodeLoader {
-  readonly taskOrderQueue: TaskOrderQueue
+  readonly roadmapQueue: TaskOrderQueue
 
   constructor(
     readonly roadmapState: RoadmapState,
     readonly setNodes: (nodeState: (prev: Nodes) => Nodes) => void
   ) {
-    this.taskOrderQueue = new TaskOrderQueue(this.roadmapState.roadmapRes.id, taskOrderQueueMap)
-    this.taskOrderQueue.dispatch(async () => {
+    this.roadmapQueue = new TaskOrderQueue(this.roadmapState.roadmapRes.id, taskOrderQueueMap)
+    this.roadmapQueue.dispatch(async () => {
       if (roadmapState.roadmapRes.firstNodeId)
         await this.loadNode(0, 0, roadmapState.roadmapRes.firstNodeId)
     })
@@ -39,13 +39,13 @@ export class NodeLoader {
 
   private setNode(columnI: number, rowI: number, nodeData: NodeData) {
     this.setNodes(prev => {
-      prev.set(columnI, rowI, new NodeEntity(nodeData, columnI, rowI))
+      prev.setNode(columnI, rowI, nodeData)
       return prev.copy()
     })
   }
 
   reset() {
-    this.taskOrderQueue.dispatch(() => {
+    this.roadmapQueue.dispatch(() => {
       this.roadmapState.updater.setFirstNodeId(undefined)
       this.setNodes(() => new Nodes([]))
     })

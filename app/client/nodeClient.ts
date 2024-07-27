@@ -6,22 +6,26 @@ export interface PostNodeBody {
   description: string | undefined,
   condition: string | undefined,
   prevNodeId: string | undefined,
-  nextNodeIds: string[],
+  downNodeId: string | undefined
+  rightNodeId: string | undefined
 }
 
-export enum NodePosition {
-  RIGHT,
-  DOWN,
-}
 
 export interface NodeRes {
   id: string,
-  roadmapId: string,
+  roadmapId: string
   title: string,
-  position: string
   description: string | undefined
   condition: string | undefined
   prevNodeId: string | undefined
+  downNodeId: string | undefined
+  rightNodeId: string | undefined
+}
+
+export interface PutNodeBody {
+  title: string,
+  description: string | undefined
+  condition: string | undefined
   downNodeId: string | undefined
   rightNodeId: string | undefined
 }
@@ -45,6 +49,15 @@ export namespace NodeClient {
       .method(HTTPMethod.GET)
       .fetch<NodeRes>()
   }
+
+  export async function put(roadmapId: string, nodeId: string, putNodeBody: PutNodeBody) {
+    return await new FetchBuilder(`/roadmap/${roadmapId}/node/${nodeId}`)
+      .method(HTTPMethod.PUT)
+      .body(putNodeBody)
+      .fetch<NodeRes>()
+  }
+}
+
 
   export async function RoadMapGetAll() {
     return await new FetchBuilder(`/roadmap`)

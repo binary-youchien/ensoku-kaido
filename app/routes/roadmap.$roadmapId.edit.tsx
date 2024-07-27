@@ -9,6 +9,7 @@ import {RoadmapEditor} from "~/routes/roadmap/editor/RoadmapEditor";
 import {RoadmapToolbar} from "~/routes/roadmap/RoadmapToolbar";
 import {NodeClient, NodeRes} from "~/client/nodeClient";
 import {SuccessOrErrMsg} from "~/mui/err/SuccessOrErrMsg";
+import {useRoadmapState} from "~/routes/roadmap/RoadmapState";
 
 export async function loader(
   {params}: LoaderFunctionArgs
@@ -29,7 +30,6 @@ export default function RoadmapNew(
 ) {
   const [roadmapResult, nodesResult]: [ApiResult<RoadmapRes>, ApiResult<NodeRes[]>]
     = useLoaderData<typeof loader>()
-
   return (
     <Box
       {...props}
@@ -37,8 +37,10 @@ export default function RoadmapNew(
     >
       <RoadmapToolbar roadmapResult={roadmapResult}/>
       <SuccessOrErrMsg result={roadmapResult} success={roadmap =>
-        <SuccessOrErrMsg result={nodesResult} success={nodes =>
-          <RoadmapEditor nodesRes={nodes.value} roadmapRes={roadmap.value}/>
+        <SuccessOrErrMsg result={nodesResult} success={nodes => {
+          const roadmapState = useRoadmapState(roadmap.value)
+          return <RoadmapEditor roadmapState={roadmapState}/>
+        }
         }/>
       }/>
     </Box>
