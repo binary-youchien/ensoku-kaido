@@ -6,9 +6,12 @@ import { ErrorIds } from "~/client/error";
 import { NodeClient, NodeRes } from "~/client/nodeClient";
 import { useLoaderData } from "@remix-run/react";
 
-export const loader: LoaderFunction = async (): Promise<Response> => {
-    const nodes = await NodeClient.RoadMapGetAll();
-    return json(nodes);
+export const loader: LoaderFunction = async ({ request }: LoaderFunctionArgs): Promise<Response> => {
+  const url = new URL(request.url);
+  const title = url.searchParams.get('title') || undefined;
+
+  const nodes = await NodeClient.RoadMapGetAll(title);
+  return json(nodes);
 };
 
 // Component rendering function
