@@ -10,7 +10,7 @@ interface NavItemProps {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ to,fgColor,bgColor , children }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+
   return (
     <Box sx={{ mb: 2}}>
       <Box sx={{
@@ -20,14 +20,8 @@ const NavItem: React.FC<NavItemProps> = ({ to,fgColor,bgColor , children }) => {
         justifyContent: 'center',
         backgroundColor: fgColor,
         borderRadius: '2px',
-        height: isHovered ? '80px' : '60px',
-        transition: 'height 0.1s linear',
-        transformOrigin: 'center top',
-
-        }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)
-      }>
+        height: '80px'
+      }}>
         <Box sx={{
           position:"absolute",
           top: 0,
