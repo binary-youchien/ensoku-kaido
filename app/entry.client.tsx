@@ -12,6 +12,7 @@ import {CacheProvider} from "@emotion/react";
 import CssBaseline from '@mui/material/CssBaseline';
 import {createEmotionCache} from "~/mui/root";
 import ClientStyleContext from "./mui/ClientStyleContext";
+import {TaskOrderQueueMap} from "~/util/TaskOrderQueueMap";
 
 interface ClientCacheProviderProps {
   children: React.ReactNode;
@@ -48,6 +49,7 @@ const hydrate = () => {
     );
   });
 };
+export const taskOrderQueueMap = new TaskOrderQueueMap()
 
 if (window.requestIdleCallback) {
   window.requestIdleCallback(hydrate);
