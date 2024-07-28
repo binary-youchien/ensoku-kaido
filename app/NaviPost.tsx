@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button, Modal, Typography, Box } from '@mui/material';
-import { RoadmapNewForm, RoadmapNewFormNs } from './routes/_form/roadmapNewForm';
+import {Box, Button, Modal, Typography} from '@mui/material';
+import {RoadmapNewForm} from './routes/_form/roadmapNewForm';
 import {action} from "~/routes/roadmap.new";
 
 const style = {
@@ -15,17 +15,22 @@ const style = {
   p: 4,
   zIndex: 9999,
 };
-const NaviEditWithModal: React.FC = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+const NaviEditWithModal: React.FC<{
+  handleOpen: () => void,
+  handleClose: () => void,
+  open: boolean
+}> = (
+  {
+    handleClose,
+    handleOpen,
+    open,
+  }) => {
   return (
     <div>
-        <Button onClick={handleOpen} sx={{
-          color:"black",
-          fontSize:'15px',
-        }}>新規作成</Button>
+      <Button onClick={handleOpen} sx={{
+        color: "black",
+        fontSize: '15px',
+      }}>新規作成</Button>
 
       <Modal
         open={open}
@@ -37,8 +42,8 @@ const NaviEditWithModal: React.FC = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             新規作成
           </Typography>
-          <Box id="modal-modal-description" sx={{ mt: 2 }}>
-            <RoadmapNewForm <typeof action>/>
+          <Box id="modal-modal-description" sx={{mt: 2}}>
+            <RoadmapNewForm<typeof action>/>
           </Box>
           <Button onClick={handleClose}>Close</Button>
         </Box>

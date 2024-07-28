@@ -1,27 +1,23 @@
-import type { MetaFunction } from "@remix-run/node";
+import type {MetaFunction} from "@remix-run/node";
 import {Box} from "@mui/system";
-import {Avatar, Modal,} from "@mui/material";
-import React, { useState } from 'react';
+import {Avatar,} from "@mui/material";
+import React from 'react';
 import NavItem from '../NavItem';
 import NaviEditWithModal from '../NaviPost'
-
-import {handle} from "mdast-util-to-markdown/lib/handle";
 
 // import BasicModal from "~/mui/BasicModal";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Ensoku Kaido" },
-    { name: "description", content: "Welcome to Remix!" },
+    {title: "Ensoku Kaido"},
+    {name: "description", content: "Welcome to Remix!"},
   ];
 };
 
 export default function Index() {
-
-  const theme ={
-    navfgColor:"#515B92",
-    navbgColor:"#D9EB99",
-  }
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
 
@@ -43,16 +39,15 @@ export default function Index() {
         }}>
           <Avatar sx={{width: 56, height: 56, mb: 2}}/>
         </Box>
-        <Box >
-          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">一覧</NavItem>
+        <Box>
           <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">トップ</NavItem>
-          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">ログイン</NavItem>
-          <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">
-            <NaviEditWithModal></NaviEditWithModal>
-          </NavItem>
+          <NavItem to="/roadmap/list" fgColor="#515B92" bgColor="#D9EB99">一覧</NavItem>
+          {/*<NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">ログイン</NavItem>*/}
+          <NavItem onClick={handleOpen} fgColor="#515B92" bgColor="#D9EB99">新規作成</NavItem>
 
         </Box>
       </Box>
+      <NaviEditWithModal handleOpen={handleOpen} handleClose={handleClose} open={open}/>
     </div>
   );
 }
