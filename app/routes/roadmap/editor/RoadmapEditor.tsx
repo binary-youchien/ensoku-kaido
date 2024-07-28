@@ -18,10 +18,11 @@ export function RoadmapEditor(
 
   useEffect(() => {
     new NodeLoader(roadmapState, nodesState.updater.setNodes)
-  }, []);
+  }, [roadmapState]);
   const nodeUpdater = useMemo(() => {
     return new NodesUpdater(nodesState.updater.setNodes, roadmapState.roadmapRes.id)
   }, [roadmapState.roadmapRes.id]);
+
   return (
     <Box
       displayPrint={"flex"}

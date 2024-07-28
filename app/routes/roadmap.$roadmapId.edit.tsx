@@ -7,7 +7,7 @@ import {RoadmapClient, RoadmapRes} from "~/client/roadmapClient";
 import {useLoaderData} from "@remix-run/react";
 import {RoadmapEditor} from "~/routes/roadmap/editor/RoadmapEditor";
 import {RoadmapToolbar} from "~/routes/roadmap/RoadmapToolbar";
-import {NodeClient, NodeRes} from "~/client/nodeClient";
+import {NodeRes} from "~/client/nodeClient";
 import {SuccessOrErrMsg} from "~/mui/err/SuccessOrErrMsg";
 import {useRoadmapState} from "~/routes/roadmap/RoadmapState";
 
