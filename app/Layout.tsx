@@ -27,7 +27,7 @@ export default function Layout(
           minWidth: "100%",
           py: 4,
           backgroundColor: '#FBF8FF',
-
+          height: "100vh"
         }}>
           <Box sx={{
             width: "15%",
@@ -62,8 +62,8 @@ export default function Layout(
           <Box sx={{
             width: "85%",
             marginLeft: "180px",
+            overflow: "scroll"
           }}>
-
             {children}
           </Box>
 
