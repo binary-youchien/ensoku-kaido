@@ -8,14 +8,11 @@ import {util} from "~/util";
 
 export namespace RoadmapNewFormNs {
   export async function action(request: Request) {
-    // console.debug("roadmap new form action: ",request)
     const formData = await request.formData().catch(reason => {
-      console.debug("error: ", reason)
       return FormState.error({form: util.createErrorMessage(reason)})
     })
     if (formData instanceof Response) return formData
     const title = formData.get("title")
-    console.debug("title: ", title)
     if (typeof title != "string") return FormState.error({title: "タイトルを入力してください"})
 
     return await RoadmapClient.post({title: title}).then(value => {
