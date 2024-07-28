@@ -16,6 +16,7 @@ async function fetchDataFromDatabaseOrAPI() {
       { id: 1, title: "ステップ1: 　一覧表示", description: "モダンフレームワーク(Remix)により、数多くのロードマップが表示可能" },
       { id: 2, title: "ステップ2: Google認証によるアカウント作成", description: "高セキュリティによるGoogleにより、セキュリティ対策" },
       { id: 3, title: "ステップ3: 今までにないロードマップ新規作成", description: "分岐により、新規エディタ可能" },
+      { id: 4, title: "ステップ3: ロードマップの編集が可能", description: "間違えても問題なし" }
     ],
   };
 }
@@ -37,7 +38,7 @@ export default function RoadmapTop() {
       </Typography>
       <List sx={{ marginBottom: 4 }}>
         {data.steps.map((step) => (
-          <ListItem key={step.id} sx={{ marginBottom: 2, marginTop: 3, padding: 2, backgroundColor: '#FDCF58FF', borderRadius: '8px' }}>
+          <ListItem key={step.id} sx={{ marginBottom: 2, marginTop: 3, padding: 2, backgroundColor: '#FDCF58FF', borderRadius: '8px', boxShadow: '1px 1px 1px 1px'  }}>
             <Box>
               <Typography variant="h4">{step.title}</Typography>
               <Typography variant="body1" sx={{ marginTop: 4, marginLeft: 2}}>{step.description}</Typography>

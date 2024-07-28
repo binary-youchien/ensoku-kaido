@@ -27,6 +27,7 @@ export default function Layout(
           minWidth: "100%",
           py: 4,
           backgroundColor: '#FBF8FF',
+
         }}>
           <Box sx={{
             width: "15%",
