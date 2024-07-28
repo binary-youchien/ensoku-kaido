@@ -1,6 +1,5 @@
 package io.github.binaryyouchien.ensokukaido
 
-import io.github.binaryyouchien.ensokukaido.common.IdRes
 import io.github.binaryyouchien.ensokukaido.roadmap.PostRoadmapBody
 import io.github.binaryyouchien.ensokukaido.roadmap.RoadmapRes
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapScheme
@@ -24,7 +23,7 @@ class RoadmapTest {
       )
     }.apply {
       assertEquals(HttpStatusCode.Created, status, this.toString())
-      assertNotNull(body<IdRes>())
+      assertNotNull(body<RoadmapRes>())
     }
   }
 
