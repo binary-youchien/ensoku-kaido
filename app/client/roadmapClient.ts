@@ -23,7 +23,7 @@ export namespace RoadmapClient {
     return await new FetchBuilder("/roadmap")
       .method(HTTPMethod.POST)
       .body(postRoadmapBody)
-      .fetch<IdRes>()
+      .fetch<RoadmapRes>()
   }
 
   export async function get(roadmapId: string): Promise<ApiResult<RoadmapRes>> {

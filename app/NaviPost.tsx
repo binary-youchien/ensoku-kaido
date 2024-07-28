@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Box, Button, Modal, Typography} from '@mui/material';
 import {RoadmapNewForm} from './routes/_form/roadmapNewForm';
-import {action} from "~/routes/roadmap.new";
+import {FormError} from "~/mui/StyledForm";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -18,12 +18,14 @@ const style = {
 const NaviEditWithModal: React.FC<{
   handleOpen: () => void,
   handleClose: () => void,
-  open: boolean
+  open: boolean,
+  formError: FormError | undefined
 }> = (
   {
     handleClose,
     handleOpen,
     open,
+    formError,
   }) => {
   return (
     <div>
@@ -43,7 +45,7 @@ const NaviEditWithModal: React.FC<{
             新規作成
           </Typography>
           <Box id="modal-modal-description" sx={{mt: 2}}>
-            <RoadmapNewForm<typeof action>/>
+            <RoadmapNewForm formError={formError}/>
           </Box>
           <Button onClick={handleClose}>Close</Button>
         </Box>
