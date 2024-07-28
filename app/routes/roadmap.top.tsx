@@ -15,7 +15,7 @@ async function fetchDataFromDatabaseOrAPI() {
     steps: [
       { id: 1, title: "ステップ1: 　一覧表示", description: "モダンフレームワーク(Remix)により、数多くのロードマップが表示可能" },
       { id: 2, title: "ステップ2: Google認証によるアカウント作成", description: "高セキュリティによるGoogleにより、セキュリティ対策" },
-      { id: 3, title: "ステップ3: 今までにないロードマップ新規作成", description: "分岐により、新規エディタ可能" },
+      { id: 3, title: "ステップ3: 検索", description: "分岐により、新規エディタ可能" },
     ],
   };
 }
