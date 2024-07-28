@@ -63,7 +63,7 @@ function RoadmapViewColumn({ nodeColumn }) {
 }
 
 function NodeView({ nodeEntity }) {
-  if (nodeEntity == undefined) return <Box padding="20px" width="90px" height="136px"></Box>;
+  if (nodeEntity == undefined) return <Box padding="20px" width="500px" height="216px"></Box>;
   if (nodeEntity.data.error) return <Box>Error: {nodeEntity.data.error.message}</Box>;
 
   const nodeRes = nodeEntity.data.nodeRes;
