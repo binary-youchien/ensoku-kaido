@@ -1,11 +1,12 @@
-import {Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData,} from "@remix-run/react";
+import {Links, Meta, Outlet, Scripts, ScrollRestoration, useActionData,} from "@remix-run/react";
 import ClientStyleContext from "~/mui/ClientStyleContext";
 import {ReactNode, useContext} from "react";
 import {unstable_useEnhancedEffect} from "@mui/material";
 import Layout from "~/Layout";
 import {withEmotionCache} from '@emotion/react';
-import {json} from "react-router";
-import * as process from "process";
+import {Request} from "@remix-run/web-fetch";
+import {RoadmapNewFormNs} from "~/routes/_form/roadmapNewForm";
+import {FormError} from "~/mui/StyledForm";
 
 interface DocumentProps {
   children: ReactNode;
@@ -51,9 +52,15 @@ const Document = withEmotionCache(({children, title}: DocumentProps, emotionCach
   );
 })
 
+export async function action({request}: { request: Request }) {
+  console.debug("on action")
+  return await RoadmapNewFormNs.action(request)
+}
+
 export default function App() {
+  const formError: FormError | undefined = useActionData<typeof action>();
   return <Document title={"遠足街道"}>
-    <Layout>
+    <Layout formError={formError}>
       <Outlet/>
     </Layout>
   </Document>;
