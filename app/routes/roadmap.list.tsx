@@ -36,6 +36,10 @@ export default function RoadmapList({ ...props }: NewProps) {
             backgroundColor:"#DEE1FF",
             margin: '8px 5px',
             boxShadow: '1px 2px 2px rgba(0, 0, 0, 0.2)',
+            "&:hover": {
+              transform: 'scale(1.01)',
+              transtion: 'all 0.3s',
+            },
 
           }}>
             <a href={`./${node.id}`} style={{textDecoration:"none",display: 'box',  position: 'absolute',width: '90%',height:"100%"}}>
