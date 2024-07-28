@@ -1,7 +1,9 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import {Box, Button, Modal, Typography} from '@mui/material';
 import {RoadmapNewForm} from './routes/_form/roadmapNewForm';
 import {FormError} from "~/mui/StyledForm";
+import {useMatches} from "@remix-run/react";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -16,24 +18,22 @@ const style = {
   zIndex: 9999,
 };
 const NaviEditWithModal: React.FC<{
-  handleOpen: () => void,
   handleClose: () => void,
   open: boolean,
   formError: FormError | undefined
 }> = (
   {
     handleClose,
-    handleOpen,
     open,
     formError,
   }) => {
-  return (
-    <div>
-      <Button onClick={handleOpen} sx={{
-        color: "black",
-        fontSize: '15px',
-      }}>新規作成</Button>
+  const match = useMatches()
+  useEffect(() => {
+    handleClose()
+  }, [match[match.length - 1].pathname]);
 
+  return (
+    <>
       <Modal
         open={open}
         onClose={handleClose}
@@ -41,16 +41,18 @@ const NaviEditWithModal: React.FC<{
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Box display={"flex"} justifyContent={"right"}>
+            <Button onClick={handleClose}>Close</Button>
+          </Box>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             新規作成
           </Typography>
           <Box id="modal-modal-description" sx={{mt: 2}}>
             <RoadmapNewForm formError={formError}/>
           </Box>
-          <Button onClick={handleClose}>Close</Button>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 };
 

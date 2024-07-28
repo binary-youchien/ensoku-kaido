@@ -5,6 +5,7 @@ import {redirect} from "@remix-run/router";
 import {StyledButton} from "~/mui/StyledButton";
 import {Request} from "@remix-run/web-fetch";
 import {util} from "~/util";
+import {MouseEventHandler} from "react";
 
 export namespace RoadmapNewFormNs {
   export async function action(request: Request) {
@@ -29,6 +30,7 @@ export namespace RoadmapNewFormNs {
 
 export function RoadmapNewForm(
   {
+    onClick,
     ...props
   }: RoadmapNewFormProps,
 ) {
@@ -36,7 +38,7 @@ export function RoadmapNewForm(
   return (
     <StyledForm {...props}>
       <TextInput label={"タイトル"} name={"title"}/>
-      <StyledButton type="submit">
+      <StyledButton type="submit" onClick={onClick}>
         作成
       </StyledButton>
     </StyledForm>
@@ -44,4 +46,5 @@ export function RoadmapNewForm(
 }
 
 export interface RoadmapNewFormProps extends FormProps {
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
