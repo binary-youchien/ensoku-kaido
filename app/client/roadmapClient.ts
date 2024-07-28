@@ -10,7 +10,11 @@ export interface PostRoadmapBody {
 export interface RoadmapRes {
   id: string
   title: string
-  firstNodeId: string
+  firstNodeId: string | undefined
+}
+export interface RoadmapScheme{
+  title: string
+  firstNodeId: string | undefined
 }
 
 export namespace RoadmapClient {
@@ -27,9 +31,15 @@ export namespace RoadmapClient {
       .method(HTTPMethod.GET)
       .fetch<RoadmapRes>()
   }
+  export async function put(roadmapId: string,roadmapScheme: RoadmapScheme) {
+    return await new FetchBuilder(`/roadmap/${roadmapId}`)
+      .method(HTTPMethod.POST)
+      .body(roadmapScheme)
+      .fetch()
+  }
+
 
   export async function getNodes(roadmapId: string) {
-    console.log(`Fetching nodes for roadmapId---------------------------------: ${roadmapId}`);
     return new FetchBuilder(`/roadmap/${roadmapId}/node`)
       .method(HTTPMethod.GET)
       .fetch<PostNodeBody[]>();

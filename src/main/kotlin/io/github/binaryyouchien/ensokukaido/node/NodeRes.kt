@@ -9,6 +9,7 @@ data class NodeRes(
   val description: String?,
   val condition: String?,
   val prevNodeId: String?,
-  val nextNodeIds: List<String>,
   val position: NodePosition,
+  val downNodeId: String?,
+  val rightNodeId: String?,
 )

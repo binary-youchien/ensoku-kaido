@@ -34,7 +34,7 @@ export class FetchBuilder {
 
 
 export namespace base {
-  const baseUrl = process.env.BASE_URL
+  const baseUrl = import.meta.env.VITE_BASE_URL
 
   export async function fetchApi<R>(path: string, init: RequestInit): Promise<ApiResult<R>> {
     try {
@@ -45,7 +45,7 @@ export namespace base {
         return Results.createErrorResult(ErrorIds.UnknownError, fetchReason)
       });
     } catch (err) {
-      console.debug("url error: ", err)
+      console.debug("url error: ", err, path, baseUrl)
       return Results.createErrorResult(ErrorIds.UnknownError, err)
     }
   }
@@ -53,6 +53,7 @@ export namespace base {
   function mergeDefaultRequestInit(init: RequestInit): RequestInit {
     return {
       headers: mergeDefaultHeadersInit(init.headers),
+      mode: init.mode ||"cors",
       ...init
     }
   }
@@ -98,7 +99,7 @@ export namespace base {
     try {
       return new URL(url, baseUrl);
     } catch (e) {
-      console.error(e);
+      console.error(e,url,baseUrl);
       throw e
     }
   }

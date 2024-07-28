@@ -9,7 +9,7 @@ abstract class AbstractDummy<T : Scheme>(
 ) {
   val id = dummies.create(defaultValue)
 
-  suspend fun read(): T? = dummies.read(id)
+  suspend fun read(): T = dummies.read(id)!!
 
   suspend fun update(scheme: Scheme): Document? = dummies.update(id, scheme)
 

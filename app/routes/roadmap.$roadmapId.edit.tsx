@@ -18,7 +18,7 @@ export async function loader(
     return json(Results.createErrorResult(ErrorIds.NoId, "no roadmap id"))
   return json([
     await RoadmapClient.get(roadmapId),
-    await NodeClient.get(roadmapId)
+    await NodeClient.getAll(roadmapId)
   ])
 }
 

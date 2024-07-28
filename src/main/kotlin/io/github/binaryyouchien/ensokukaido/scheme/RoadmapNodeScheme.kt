@@ -12,8 +12,9 @@ data class RoadmapNodeScheme private constructor(
   val description: String?,
   val condition: String?,
   val prevNodeId: String?,
-  val nextNodeIds: List<String>,
   val position: NodePosition,
+  val downNodeId: String?,
+  val rightNodeId: String?,
 ) : Scheme() {
 
   companion object {
@@ -24,16 +25,18 @@ data class RoadmapNodeScheme private constructor(
       description: String?,
       condition: String?,
       prevNodeId: String?,
-      nextNodeIds: List<String>,
       position: NodePosition,
+      downNodeId: String?,
+      rightNodeId: String?,
     ) = RoadmapNodeScheme(
       roadmapId,
       title,
       description,
       condition,
       prevNodeId,
-      nextNodeIds,
-      position
+      position,
+      downNodeId = downNodeId,
+      rightNodeId = rightNodeId,
     ).also {
       if (id != null) {
         it.id = id
@@ -48,8 +51,9 @@ data class RoadmapNodeScheme private constructor(
       description = this.description,
       condition = this.condition,
       prevNodeId = this.prevNodeId,
-      nextNodeIds = this.nextNodeIds,
       position = position,
+      downNodeId = downNodeId,
+      rightNodeId = rightNodeId
     )
   }
 }

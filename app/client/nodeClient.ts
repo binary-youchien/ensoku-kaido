@@ -22,7 +22,8 @@ export interface NodeRes {
   description: string | undefined
   condition: string | undefined
   prevNodeId: string | undefined
-  nextNodeIds: string[]
+  downNodeId: string | undefined
+  rightNodeId: string | undefined
 }
 
 export namespace NodeClient {
