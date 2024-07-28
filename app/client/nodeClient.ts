@@ -1,27 +1,30 @@
 import {FetchBuilder, HTTPMethod} from "~/client/base";
-import {IdRes} from "~/client/common";
 
 export interface PostNodeBody {
   title: string,
   description: string | undefined,
   condition: string | undefined,
   prevNodeId: string | undefined,
-  nextNodeIds: string[],
+  downNodeId: string | undefined
+  rightNodeId: string | undefined
 }
 
-export enum NodePosition {
-  RIGHT,
-  DOWN,
-}
 
 export interface NodeRes {
   id: string,
-  roadmapId: string,
+  roadmapId: string
   title: string,
-  position: string
   description: string | undefined
   condition: string | undefined
   prevNodeId: string | undefined
+  downNodeId: string | undefined
+  rightNodeId: string | undefined
+}
+
+export interface PutNodeBody {
+  title: string,
+  description: string | undefined
+  condition: string | undefined
   downNodeId: string | undefined
   rightNodeId: string | undefined
 }
@@ -31,7 +34,7 @@ export namespace NodeClient {
     return await new FetchBuilder(`/roadmap/${roadmapId}/node`)
       .method(HTTPMethod.POST)
       .body(postNodeBody)
-      .fetch<IdRes>()
+      .fetch<NodeRes>()
   }
 
   export async function getAll(roadmapId: string) {
@@ -46,13 +49,16 @@ export namespace NodeClient {
       .fetch<NodeRes>()
   }
 
-  export async function RoadMapGetAll(title?: string) {
-    const queryParams = new URLSearchParams();
-    if (title) {
-      queryParams.append('title', title);
-    }
+  export async function put(roadmapId: string, nodeId: string, putNodeBody: PutNodeBody) {
+    return await new FetchBuilder(`/roadmap/${roadmapId}/node/${nodeId}`)
+      .method(HTTPMethod.PUT)
+      .body(putNodeBody)
+      .fetch<NodeRes>()
+  }
 
-    return await new FetchBuilder(`/roadmap${queryParams.toString() ? '?' + queryParams.toString() : ''}`)
+
+  export async function RoadMapGetAll() {
+    return await new FetchBuilder(`/roadmap`)
       .method(HTTPMethod.GET)
       .fetch<NodeRes[]>()
   }

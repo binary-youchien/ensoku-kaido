@@ -1,9 +1,8 @@
-package io.github.binaryyouchien.ensokukaido.service
+package io.github.binaryyouchien.ensokukaido.scheme
 
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.Filters
 import io.github.binaryyouchien.ensokukaido.plugins.Database
-import io.github.binaryyouchien.ensokukaido.scheme.Scheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -26,21 +25,22 @@ abstract class AbstractService<T : Scheme>(
     collection = database.getCollection(schemeName)
   }
 
-  suspend fun create(scheme: T): String = withContext(Dispatchers.IO) {
+  suspend fun create(scheme: T): T = withContext(Dispatchers.IO) {
     val doc = scheme.toDocument()
     collection.insertOne(doc)
-    doc["_id"].toString()
+    createInstance(doc)
   }
 
   suspend fun read(id: String): T? = withContext(Dispatchers.IO) {
     collection
       .find(Filters.eq("_id", ObjectId(id)))
-      .first()
+      .first().also { println(it) }
       ?.let { createInstance(it) }
   }
 
-  suspend fun update(id: String, scheme: Scheme): Document? = withContext(Dispatchers.IO) {
+  suspend fun update(id: String, scheme: T): T? = withContext(Dispatchers.IO) {
     collection.findOneAndReplace(Filters.eq("_id", ObjectId(id)), scheme.toDocument())
+      ?.let { createInstance(it) }
   }
 
   suspend fun delete(id: String): Document? = withContext(Dispatchers.IO) {

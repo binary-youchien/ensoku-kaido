@@ -39,13 +39,13 @@ export default function RoadmapRoadmapId() {
       </div>
       <h1>{roadmapState.roadmapRes.title}</h1>
       <div className="roadmap-grid">
-        <div>Column size: {nodes.columnSize()}
-             Row size: {nodes.rowSize()}
+        <div>Column size: {nodes.columnCnt()}
+             Row size: {nodes.rowCnt()}
         </div>
-        {Array.from({ length: nodes.columnSize() }).map((_, columnIndex) => (
+        {Array.from({ length: nodes.columnCnt() }).map((_, columnIndex) => (
           <div key={columnIndex} className="roadmap-column">
-            {Array.from({ length: nodes.rowSize() }).map((_, rowIndex) => {
-              const node = nodes.nodes[columnIndex]?.[rowIndex];
+            {Array.from({ length: nodes.rowCnt() }).map((_, rowIndex) => {
+              const node = nodes.nodes[columnIndex]?.nodeEntities[rowIndex];
               return (
                 <div key={`${columnIndex}-${rowIndex}`} className="roadmap-node">
                   {node ? (

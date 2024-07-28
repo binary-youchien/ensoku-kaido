@@ -1,5 +1,6 @@
 package io.github.binaryyouchien.ensokukaido.service
 import io.github.binaryyouchien.ensokukaido.plugins.Database
+import io.github.binaryyouchien.ensokukaido.scheme.AbstractService
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapScheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
