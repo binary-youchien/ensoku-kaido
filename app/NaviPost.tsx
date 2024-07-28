@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Button, Modal, Typography, Box } from '@mui/material';
 import { RoadmapNewForm, RoadmapNewFormNs } from './routes/_form/roadmapNewForm';
+import {action} from "~/routes/roadmap.new";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -37,7 +38,7 @@ const NaviEditWithModal: React.FC = () => {
             新規作成
           </Typography>
           <Box id="modal-modal-description" sx={{ mt: 2 }}>
-            {/*<RoadmapNewForm action={RoadmapNewFormNs.action} />*/}
+            <RoadmapNewForm <typeof action>/>
           </Box>
           <Button onClick={handleClose}>Close</Button>
         </Box>

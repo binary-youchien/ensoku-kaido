@@ -16,7 +16,7 @@ export default function RoadmapNew(
       {...props}
       className={"bg-white"}
     >
-      <RoadmapNewForm<typeof action>/>
+      <RoadmapNewForm <typeof action>/>
     </Box>
   )
 }
