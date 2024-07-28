@@ -5,6 +5,7 @@ import {NodeEntity} from "~/routes/node/NodeEntity";
 import {ErrorMessage} from "~/mui/err/ErrorMessage";
 import {Button} from "@mui/material";
 import {NodesUpdater} from "~/routes/node/NodesUpdater";
+import {NodeCard} from "~/routes/node/NodeCard";
 
 export function NodeCardContainer(
   {
@@ -13,8 +14,10 @@ export function NodeCardContainer(
     ...props
   }: NodeCardProps,
 ) {
+  const cardH = 150
+  const cardW = 500
   if (nodeEntity == undefined) return <Box
-    width={"90px"} height={"90px"}
+    width={`${cardW + 40}px`} height={`${cardH + 40}px`}
   ></Box>
   if (nodeEntity.data.error) return <ErrorMessage error={nodeEntity.data.error?.message}/>
   const nodeRes = nodeEntity.data.nodeRes
@@ -24,11 +27,11 @@ export function NodeCardContainer(
   >
     <Box paddingTop={"20px"}>
       <Box
-        bgcolor={"red"}
-        height={"50px"}
-        width={"50px"}
+        bgcolor={"#ced7fc"}
+        height={`${cardH}px`}
+        width={`${cardW}px`}
       >
-        {nodeRes.title}
+        <NodeCard setNodes={nodeUpdater.setNodes} nodeEntity={nodeEntity}/>
       </Box>
       <Box height={"20px"}>
         {
