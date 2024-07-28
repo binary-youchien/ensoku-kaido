@@ -26,10 +26,11 @@ class RoadmapRoute(
       }
 
       get {
-        val roadmaps = roadmapService.readAllRoadmaps()
-          .map { it.toRoadmapRes() }
-        call.respond(HttpStatusCode.OK, roadmaps)
+        val titleFilter = call.request.queryParameters["title"]
+        val roadmaps = roadmapService.readRoadmaps(titleFilter)
+        call.respond(HttpStatusCode.OK, roadmaps.map { it.toRoadmapRes() })
       }
+
       route("/{roadmapId}") {
         get {
           val id = call.parameters["roadmapId"] ?: throw IllegalArgumentException("No ID found")

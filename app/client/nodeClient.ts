@@ -46,8 +46,13 @@ export namespace NodeClient {
       .fetch<NodeRes>()
   }
 
-  export async function RoadMapGetAll() {
-    return await new FetchBuilder(`/roadmap`)
+  export async function RoadMapGetAll(title?: string) {
+    const queryParams = new URLSearchParams();
+    if (title) {
+      queryParams.append('title', title);
+    }
+
+    return await new FetchBuilder(`/roadmap${queryParams.toString() ? '?' + queryParams.toString() : ''}`)
       .method(HTTPMethod.GET)
       .fetch<NodeRes[]>()
   }
