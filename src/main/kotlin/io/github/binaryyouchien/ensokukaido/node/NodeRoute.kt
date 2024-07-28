@@ -12,9 +12,9 @@ import io.ktor.server.routing.*
 
 class NodeRoute(
   database: Database,
+  private val nodeService: NodeService
 ) {
   private val roadmapService = RoadmapService(database)
-  private val nodeService = NodeService(database)
 
   fun route(route: Route) {
     route.route("/node") {

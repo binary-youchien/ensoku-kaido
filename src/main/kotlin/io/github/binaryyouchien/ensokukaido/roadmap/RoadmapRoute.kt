@@ -2,7 +2,9 @@ package io.github.binaryyouchien.ensokukaido.roadmap
 
 import io.github.binaryyouchien.ensokukaido.node.NodeRoute
 import io.github.binaryyouchien.ensokukaido.plugins.Database
+import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapScheme
+import io.github.binaryyouchien.ensokukaido.service.NodeService
 import io.github.binaryyouchien.ensokukaido.service.RoadmapService
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -14,14 +16,23 @@ class RoadmapRoute(
   database: Database,
 ) {
   private val roadmapService = RoadmapService(database)
-  private val nodeRoute = NodeRoute(database)
+  private val nodeService = NodeService(database)
+  private val nodeRoute = NodeRoute(database, nodeService)
 
   fun route(route: Route) {
     route.route("/roadmap") {
       post {
         val postRoadmapBody = call.receive<PostRoadmapBody>()
-        val roadmapScheme =     roadmapService.create(postRoadmapBody.toRoadmapScheme())
-        call.respond(HttpStatusCode.Created, roadmapScheme.toRoadmapRes())
+        val roadmapScheme = roadmapService.create(postRoadmapBody.toRoadmapScheme())
+        val nodeScheme = nodeService.create(
+          RoadmapNodeScheme.create(
+            null, roadmapScheme.id, "", null, null, null, null, null
+          )
+        )
+        roadmapScheme.firstNodeId = nodeScheme.id
+        roadmapService.update(roadmapScheme.id, roadmapScheme)?.let {
+          call.respond(HttpStatusCode.Created, it.toRoadmapRes())
+        }!!
       }
 
       get {

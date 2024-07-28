@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Suppress("DataClassPrivateConstructor")
 @Serializable
 data class RoadmapScheme private constructor(
-  val firstNodeId: String? = null,
+  var firstNodeId: String? = null,
   val title: String,
 ) : Scheme() {
   companion object {
