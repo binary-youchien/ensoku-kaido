@@ -14,7 +14,7 @@ export function NodeCardContainer(
     ...props
   }: NodeCardProps,
 ) {
-  const cardH = 80
+  const cardH = 150
   const cardW = 500
   if (nodeEntity == undefined) return <Box
     width={`${cardW + 40}px`} height={`${cardH + 40}px`}

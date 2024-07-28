@@ -41,6 +41,23 @@ export function NodeCard(
               })
             })
           }}/>
+
+          <TextInput size={"small"} label={"説明"} value={res.description} onChange={(event) => {
+            const desc = event.target.value
+            setNodes(prev => {
+              prev.nodes[nodeEntity.column].nodeEntities[nodeEntity.row]!.data.nodeRes!!.description = desc
+              return prev.copy()
+            })
+            taskOrderQueueMap.dispatch(res.id, async () => {
+              await NodeClient.put(res.roadmapId, res.id, {
+                condition: res?.condition,
+                description: desc,
+                downNodeId: res?.downNodeId,
+                rightNodeId: res?.rightNodeId,
+                title: res.title
+              })
+            })
+          }}/>
         </>
       }
     </Box>
