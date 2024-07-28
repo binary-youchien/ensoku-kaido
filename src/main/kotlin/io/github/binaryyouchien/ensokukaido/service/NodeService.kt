@@ -2,6 +2,7 @@ package io.github.binaryyouchien.ensokukaido.service
 
 import com.mongodb.client.model.Filters.eq
 import io.github.binaryyouchien.ensokukaido.plugins.Database
+import io.github.binaryyouchien.ensokukaido.scheme.AbstractService
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

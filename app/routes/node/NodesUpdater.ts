@@ -21,11 +21,7 @@ export class NodesUpdater {
     if (parentNode.data.error) {
       throw Error("invalid node state error")
     }
-    const parentNodeRes = parentNode.data.nodeRes
-    taskOrderQueueMap.dispatch(parentNodeRes.roadmapId, async () => {
-      if (this.roadmapId != parentNodeRes.roadmapId) {
-        throw new Error("different romapId")
-      }
+    taskOrderQueueMap.dispatch(this.roadmapId, async () => {
       const promises: Promise<any>[] = []
       const result = await NodeClient.postNode(this.roadmapId, {
         condition: condition, description: description, downNodeId: undefined,
@@ -42,8 +38,13 @@ export class NodesUpdater {
           description: prevNodeRes.description,
           rightNodeId: position == "right" ? result.value.id : prevNodeRes.rightNodeId, title: prevNodeRes.title
         }))
-        if (position == "down") prevNodeRes.downNodeId = result.value.id
-        else prevNodeRes.rightNodeId = result.value.id
+        if (position == "down") {
+          prevNodeRes.downNodeId = result.value.id
+          prev.setNode(parentNode.column, parentNode.row + 1, {nodeRes: result.value})
+        } else {
+          prevNodeRes.rightNodeId = result.value.id
+          prev.setNode(parentNode.column + 1, parentNode.row, {nodeRes: result.value})
+        }
         return prev.copy()
       })
       await Promise.all(promises)

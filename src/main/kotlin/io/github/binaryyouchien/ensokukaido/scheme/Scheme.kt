@@ -10,5 +10,7 @@ import org.bson.Document
 sealed class Scheme {
   @Transient
   lateinit var id: String
+    internal set
+
   fun toDocument(): Document = Document.parse(Json.encodeToString(this))
 }

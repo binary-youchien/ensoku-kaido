@@ -39,6 +39,7 @@ export namespace base {
   export async function fetchApi<R>(path: string, init: RequestInit): Promise<ApiResult<R>> {
     try {
       return await fetch(createApiURL(path), mergeDefaultRequestInit(init)).then(async (res) => {
+        console.debug(path, init)
         return await resToResult<R>(res)
       }).catch((fetchReason) => {
         console.debug("fetch error: ", fetchReason)
@@ -53,7 +54,7 @@ export namespace base {
   function mergeDefaultRequestInit(init: RequestInit): RequestInit {
     return {
       headers: mergeDefaultHeadersInit(init.headers),
-      mode: init.mode ||"cors",
+      mode: init.mode || "cors",
       ...init
     }
   }
@@ -76,7 +77,7 @@ export namespace base {
   }
 
   async function resToResult<R>(res: Response): Promise<ApiResult<R>> {
-    const jsonResult = await jsonToResult<R>(res.json())
+    const jsonResult = await jsonToResult<R>(res.json(), res)
     if (res.ok) {
       return jsonResult
     }
@@ -86,11 +87,11 @@ export namespace base {
     return jsonResult
   }
 
-  async function jsonToResult<R>(json: Promise<R>): Promise<ApiResult<R>> {
+  async function jsonToResult<R>(json: Promise<R>, res: Response): Promise<ApiResult<R>> {
     return await json.then(value => {
       return {value: value as R}
     }).catch(reason => {
-      console.debug("json error: ", reason)
+      console.debug("json error: ", reason, res)
       return Results.createErrorResult(ErrorIds.InvalidBody, reason)
     })
   }
@@ -99,7 +100,7 @@ export namespace base {
     try {
       return new URL(url, baseUrl);
     } catch (e) {
-      console.error(e,url,baseUrl);
+      console.error(e, url, baseUrl);
       throw e
     }
   }

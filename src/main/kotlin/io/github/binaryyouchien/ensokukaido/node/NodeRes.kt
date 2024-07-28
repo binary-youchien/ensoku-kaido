@@ -11,4 +11,5 @@ data class NodeRes(
   val prevNodeId: String?,
   val downNodeId: String?,
   val rightNodeId: String?,
+  val title: String?,
 )

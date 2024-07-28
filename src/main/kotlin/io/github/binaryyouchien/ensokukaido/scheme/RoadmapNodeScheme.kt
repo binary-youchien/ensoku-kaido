@@ -48,7 +48,8 @@ data class RoadmapNodeScheme private constructor(
       condition = this.condition,
       prevNodeId = this.prevNodeId,
       downNodeId = downNodeId,
-      rightNodeId = rightNodeId
+      rightNodeId = rightNodeId,
+      title=title,
     )
   }
 }

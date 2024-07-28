@@ -1,5 +1,4 @@
 import {FetchBuilder, HTTPMethod} from "~/client/base";
-import {IdRes} from "~/client/common";
 
 export interface PostNodeBody {
   title: string,
@@ -35,7 +34,7 @@ export namespace NodeClient {
     return await new FetchBuilder(`/roadmap/${roadmapId}/node`)
       .method(HTTPMethod.POST)
       .body(postNodeBody)
-      .fetch<IdRes>()
+      .fetch<NodeRes>()
   }
 
   export async function getAll(roadmapId: string) {
@@ -56,7 +55,6 @@ export namespace NodeClient {
       .body(putNodeBody)
       .fetch<NodeRes>()
   }
-}
 
 
   export async function RoadMapGetAll() {
