@@ -1,14 +1,17 @@
-import {Links, Meta, Outlet, Scripts, ScrollRestoration,} from "@remix-run/react";
+import {Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData,} from "@remix-run/react";
 import ClientStyleContext from "~/mui/ClientStyleContext";
 import {ReactNode, useContext} from "react";
 import {unstable_useEnhancedEffect} from "@mui/material";
 import Layout from "~/Layout";
 import {withEmotionCache} from '@emotion/react';
+import {json} from "react-router";
+import * as process from "process";
 
 interface DocumentProps {
   children: ReactNode;
   title?: string;
 }
+
 
 const Document = withEmotionCache(({children, title}: DocumentProps, emotionCache) => {
   const clientStyleData = useContext(ClientStyleContext);

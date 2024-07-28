@@ -1,5 +1,5 @@
-import {ErrorId, ErrorIds} from "~/client/error";
-import {util} from "~/util";
+import {ErrorIds} from "~/client/error";
+import {ApiResult, Results} from "~/client/result";
 
 export enum HTTPMethod {
   GET = "GET",
@@ -34,23 +34,27 @@ export class FetchBuilder {
 
 
 export namespace base {
-  const baseUrl = process.env.BASE_URL
+  const baseUrl = import.meta.env.VITE_BASE_URL
 
   export async function fetchApi<R>(path: string, init: RequestInit): Promise<ApiResult<R>> {
     try {
       return await fetch(createApiURL(path), mergeDefaultRequestInit(init)).then(async (res) => {
+        console.debug(path, init)
         return await resToResult<R>(res)
       }).catch((fetchReason) => {
-        return createErrorResult(ErrorIds.UnknownError, fetchReason)
+        console.debug("fetch error: ", fetchReason)
+        return Results.createErrorResult(ErrorIds.UnknownError, fetchReason)
       });
     } catch (err) {
-      return createErrorResult(ErrorIds.UnknownError, err)
+      console.debug("url error: ", err, path, baseUrl)
+      return Results.createErrorResult(ErrorIds.UnknownError, err)
     }
   }
 
   function mergeDefaultRequestInit(init: RequestInit): RequestInit {
     return {
       headers: mergeDefaultHeadersInit(init.headers),
+      mode: init.mode || "cors",
       ...init
     }
   }
@@ -73,7 +77,7 @@ export namespace base {
   }
 
   async function resToResult<R>(res: Response): Promise<ApiResult<R>> {
-    const jsonResult = await jsonToResult<R>(res.json())
+    const jsonResult = await jsonToResult<R>(res.json(), res)
     if (res.ok) {
       return jsonResult
     }
@@ -83,41 +87,22 @@ export namespace base {
     return jsonResult
   }
 
-  async function jsonToResult<R>(json: Promise<R>): Promise<ApiResult<R>> {
+  async function jsonToResult<R>(json: Promise<R>, res: Response): Promise<ApiResult<R>> {
     return await json.then(value => {
       return {value: value as R}
     }).catch(reason => {
-      return createErrorResult(ErrorIds.InvalidBody, reason)
+      console.debug("json error: ", reason, res)
+      return Results.createErrorResult(ErrorIds.InvalidBody, reason)
     })
-  }
-
-  function createErrorResult(errorId: ErrorId, reason: any): ErrorResult {
-    return {error: errorId.createData(util.createErrorMessage(reason))};
-  }
-
-  type ApiResult<T> = SuccessResult<T> | ErrorResult
-
-  export interface SuccessResult<T> {
-    value: T;
-    error?: undefined;
-  }
-
-  export interface ErrorResult {
-    value?: undefined;
-    error: ErrorData;
-  }
-
-  export interface ErrorData {
-    error_id: string;
-    message: string;
   }
 
   export function createApiURL(url: URL | string): URL {
     try {
       return new URL(url, baseUrl);
     } catch (e) {
-      console.error(e);
+      console.error(e, url, baseUrl);
       throw e
     }
   }
+
 }

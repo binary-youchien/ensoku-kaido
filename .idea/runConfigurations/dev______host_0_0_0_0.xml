@@ -1,13 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="dev -- --host 0.0.0.0" type="js.build_tools.npm" nameIsGenerated="true">
-    <package-json value="$PROJECT_DIR$/package.json" />
-    <command value="run" />
-    <scripts>
-      <script value="dev" />
-    </scripts>
-    <arguments value="-- --host 0.0.0.0" />
-    <node-interpreter value="project" />
-    <envs />
+  <configuration default="false" name="dev" type="CompoundRunConfigurationType">
+    <toRun name="db" type="docker-deploy" />
+    <toRun name="back" type="KtorApplicationConfigurationType" />
+    <toRun name="dev -- --host 0.0.0.0" type="js.build_tools.npm" />
+    <toRun name="ssh fowored" type="ShConfigurationType" />
     <method v="2" />
   </configuration>
 </component>

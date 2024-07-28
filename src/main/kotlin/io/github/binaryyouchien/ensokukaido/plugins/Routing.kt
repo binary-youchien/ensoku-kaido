@@ -6,15 +6,15 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 class Routing(
-  database: Database,
+    database: Database,
 ) {
-  private val roadmapRoute = RoadmapRoute(database)
-  fun Application.configureRouting() {
-    routing {
-      get("/") {
-        call.respondText("Hello World!")
-      }
-      roadmapRoute.route(this)
+    private val roadmapRoute = RoadmapRoute(database)
+    fun Application.configureRouting() {
+        routing {
+            get("/") {
+                call.respondText("Hello World!")
+            }
+            roadmapRoute.route(this)
+        }
     }
-  }
 }
