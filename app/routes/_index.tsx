@@ -1,48 +1,117 @@
 import type { MetaFunction } from "@remix-run/node";
+import {Box, Container} from "@mui/system";
+import {Avatar,} from "@mui/material";
+
+import NavItem from '../NavItem';
+import * as React from "react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "Ensoku Kaido" },
+    { name: "description", content: "ensokkaidou!!" },
   ];
 };
 
 export default function Index() {
   return (
-    <div className="font-sans p-4">
-      <h1 className="text-3xl">Welcome to Remix</h1>
-      <ul className="list-disc mt-4 pl-6 space-y-2">
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/quickstart"
-            rel="noreferrer"
-          >
-            5m Quick Start
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/start/tutorial"
-            rel="noreferrer"
-          >
-            30m Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            className="text-blue-700 underline visited:text-purple-900"
-            target="_blank"
-            href="https://remix.run/docs"
-            rel="noreferrer"
-          >
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className="font-sans p-4"  >
+      <Container sx={{
+        display:"flex",
+        minWidth:"100%",
+        py:4,
+        backgroundColor: '#FBF8FF',
+      }}>
+        <Box sx={{
+          width:"15%",
+          position:"fixed",
+        }}>
+          <Box sx={{
+            width: "160px",
+            // mx:"auto",
+            backgroundColor: '#D9EB99',
+            borderRadius: "30px",
+            boxShadow: '0px 2px 1px rgba(0, 0, 0, 0.2)',
+            height: "93vh",
+          }}>
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: "20%",
+              width: "100%",
+            }}>
+              <Avatar sx={{width: 56, height: 56, mb: 2}}/>
+            </Box>
+            <Box >
+              <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">一覧</NavItem>
+              <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">トップ</NavItem>
+              <NavItem to="/" fgColor="#515B92" bgColor="#D9EB99">ログイン</NavItem>
+            </Box>
+          </Box>
+        </Box>
+        <Box sx={{
+          width: "85%",
+          marginLeft: "180px",
+        }}>
+
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+          <h1>mainnnnnnnnnnnnn</h1>
+
+        </Box>
+
+      </Container>
+
     </div>
   );
 }
+
+
+
