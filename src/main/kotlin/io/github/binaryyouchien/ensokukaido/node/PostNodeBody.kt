@@ -1,4 +1,4 @@
-package io.github.binaryyouchien.ensokukaido.roadmap
+package io.github.binaryyouchien.ensokukaido.node
 
 import io.github.binaryyouchien.ensokukaido.scheme.RoadmapNodeScheme
 import kotlinx.serialization.Serializable
@@ -10,13 +10,16 @@ data class PostNodeBody(
   val condition: String?,
   val prevNodeId: String?,
   val nextNodeIds: List<String>,
+  val position: NodePosition,
 ) {
-  fun toNodeScheme(roadmapId: String) = RoadmapNodeScheme(
+  fun toNodeScheme(roadmapId: String) = RoadmapNodeScheme.create(
+    null,
     roadmapId,
     title,
     description,
     condition,
     prevNodeId,
-    nextNodeIds
+    nextNodeIds,
+    position
   )
 }
