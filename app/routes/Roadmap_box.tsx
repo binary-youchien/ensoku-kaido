@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
 const MyComponent = ({ nodeRes }) => {
-  const fgColor = "#e0edff";
+  const fgColor = "#fdcf58";
 
   return (
     <Box padding="0 20px" display="flex">
@@ -36,7 +36,7 @@ const MyComponent = ({ nodeRes }) => {
               top: '100%',
               left: '30px',
               border: '15px solid transparent',
-              borderTopColor: '#e0edff',
+              borderTopColor: '#fdcf58',
               width: 0,
               height: 0,
               zIndex: 1,
