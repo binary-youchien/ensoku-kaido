@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-
 const MyComponent = ({ nodeRes }) => {
   const fgColor = "#fdcf58";
 
@@ -9,13 +8,10 @@ const MyComponent = ({ nodeRes }) => {
         <Box
           sx={{
             position: 'relative',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             backgroundColor: fgColor,
             borderRadius: '2px',
-            height: '80px',
-            width:"90px",
+            height: '150px',
+            width:"500px",
             marginBottom: '16px',
             boxShadow:"3px 3px 3px black",
             '&::before': {
@@ -41,10 +37,23 @@ const MyComponent = ({ nodeRes }) => {
               height: 0,
               zIndex: 1,
             },
+            '& h2': {
+              margin: '10px 0 5px 0',
+              padding: '0 10px',
+            },
+            '& p': {
+              margin: '5px 0 10px 0',
+              padding: '0 10px',
+            },
           }}
         >
-          {nodeRes.title}
-        </Box>
+          <h2>
+            {nodeRes.title}
+          </h2>
+          <p>
+            {nodeRes.description}
+          </p>
+          </Box>
       </Box>
     </Box>
   );
