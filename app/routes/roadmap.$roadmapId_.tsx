@@ -7,6 +7,7 @@ import { NodeLoader } from "~/routes/node/NodeLoader";
 import { Box } from "@mui/system";
 import { Nodes } from "~/routes/node/Nodes";
 import MyComponent from "~/routes/Roadmap_box";
+import { Button } from "@mui/material";
 
 export const loader: LoaderFunction = async ({ params }) => {
   const roadmapId = params.roadmapId as string;
@@ -27,11 +28,27 @@ export default function RoadmapRoadmapId() {
   }, [roadmapState]);
 
   return (
-    <Box display="flex">
-      {nodes.nodes.map((nodeColumn, index) => (
-        <RoadmapViewColumn nodeColumn={nodeColumn} key={index} />
-      ))}
-    </Box>
+    <>
+      <Box display="flex">
+        {nodes.nodes.map((nodeColumn, index) => (
+          <RoadmapViewColumn nodeColumn={nodeColumn} roadmapId={roadmap.id} key={index} />
+        ))}
+      </Box>
+      <Button
+        href={`/roadmap/${roadmap.id}/edit`}
+        variant="contained"
+        color="primary"
+        sx={{
+          position: 'fixed',
+          bottom: '16px',
+          right: '16px',
+          zIndex: 1000,
+          textDecoration: 'none',
+        }}
+      >
+        編集ページへ移動
+      </Button>
+    </>
   );
 }
 
